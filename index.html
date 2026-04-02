@@ -18,10 +18,21 @@
     --text-mid: #6b6560;
     --white: #fafaf8;
     --header-h: 52px;
+    --success: #41513f;
+    --danger: #8b4b4b;
   }
-  body { font-family: 'Jost', sans-serif; background: var(--white); color: var(--text-dark); overflow-x: hidden; }
 
-  /* ───── HEADER ───── */
+  body {
+    font-family: 'Jost', sans-serif;
+    background: var(--white);
+    color: var(--text-dark);
+    overflow-x: hidden;
+  }
+
+  a { color: inherit; }
+  button, input { font: inherit; }
+
+  /* HEADER */
   header {
     position: fixed; top: 0; left: 0; right: 0; z-index: 100;
     height: var(--header-h);
@@ -40,15 +51,31 @@
     letter-spacing: 0.35em; color: var(--text-dark); text-decoration: none; text-transform: uppercase;
   }
   .header-right { display: flex; align-items: center; gap: 1.2rem; }
-  .header-icon { cursor: pointer; position: relative; }
+  .header-icon { cursor: pointer; position: relative; display: flex; align-items: center; justify-content: center; }
   .header-icon svg { width: 18px; height: 18px; stroke: var(--text-dark); fill: none; stroke-width: 1.2; }
   .cart-badge {
     position: absolute; top: -4px; right: -5px;
     width: 13px; height: 13px; background: var(--text-dark); border-radius: 50%;
     font-size: 8px; color: var(--white); display: flex; align-items: center; justify-content: center; font-weight: 300;
   }
+  .avatar-badge {
+    min-width: 34px;
+    height: 34px;
+    padding: 0 0.55rem;
+    border-radius: 999px;
+    border: 0.6px solid var(--gray-dark);
+    background: var(--beige);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    gap: 0.16rem;
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  .avatar-badge.visible { display: inline-flex; }
 
-  /* ───── MENU OVERLAY ───── */
+  /* MENU */
   .menu-overlay {
     position: fixed; inset: 0; background: var(--beige); z-index: 200;
     transform: translateX(-100%); transition: transform 0.45s cubic-bezier(.77,0,.175,1);
@@ -68,9 +95,14 @@
   }
   .menu-links a:hover { color: var(--gray-dark); }
 
-  /* ───── HERO ───── */
+  main { padding-top: var(--header-h); }
+
+  /* PAGES */
+  .page-view { display: none; }
+  .page-view.active { display: block; }
+
+  /* HERO */
   .hero {
-    margin-top: var(--header-h);
     position: relative;
     height: calc(100vh - var(--header-h));
     overflow: hidden;
@@ -103,7 +135,7 @@
     text-transform: uppercase;
   }
 
-  /* ───── PRODUCTS ───── */
+  /* PRODUCTS */
   .products-section { padding: 4rem 2rem 2rem; background: var(--white); }
   .section-label {
     font-family: 'Jost', sans-serif; font-weight: 200; font-size: 0.68rem;
@@ -204,7 +236,7 @@
   .product-name span { display: block; font-size: 0.62rem; color: var(--gray-dark); font-weight: 200; letter-spacing: 0.08em; margin-top: 2px; }
   .product-price { font-family: 'Cormorant Garamond', serif; font-weight: 400; font-size: 1rem; color: var(--text-dark); }
 
-  /* ───── DESCRIPTION ───── */
+  /* DESCRIPTION */
   .desc-section { padding: 4rem 2rem; display: flex; justify-content: center; background: var(--white); }
   .desc-block { max-width: 720px; width: 100%; border: 0.5px solid var(--beige-dark); padding: 3rem 3.5rem; background: var(--beige); }
   .desc-eyebrow { font-family: 'Jost', sans-serif; font-weight: 200; font-size: 0.62rem; letter-spacing: 0.55em; text-transform: uppercase; color: var(--gray-dark); margin-bottom: 1.4rem; }
@@ -214,7 +246,7 @@
   .desc-list li { font-family: 'Jost', sans-serif; font-weight: 200; font-size: 0.78rem; color: var(--text-mid); padding-left: 1rem; position: relative; letter-spacing: 0.03em; }
   .desc-list li::before { content: '—'; position: absolute; left: 0; color: var(--beige-dark); }
 
-  /* ───── VIDEO ───── */
+  /* VIDEO */
   .video-section { padding: 2.5rem 2rem 4rem; background: var(--gray-light); display: flex; flex-direction: column; align-items: center; gap: 1rem; }
   .video-label { font-family: 'Jost', sans-serif; font-weight: 200; font-size: 0.65rem; letter-spacing: 0.5em; text-transform: uppercase; color: var(--gray-dark); }
   .video-placeholder {
@@ -230,12 +262,12 @@
   .video-placeholder:hover .play-btn svg { fill: var(--white); }
   .video-caption { font-family: 'Jost', sans-serif; font-weight: 200; font-size: 0.72rem; letter-spacing: 0.2em; color: var(--text-mid); text-transform: uppercase; }
 
-  /* ───── NEWSLETTER ───── */
+  /* NEWSLETTER */
   .newsletter-section { padding: 5rem 2rem; background: var(--text-dark); display: flex; flex-direction: column; align-items: center; gap: 0.6rem; text-align: center; }
   .newsletter-brand { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: 1.1rem; letter-spacing: 0.35em; color: var(--beige-mid); text-transform: uppercase; margin-bottom: 0.8rem; }
   .newsletter-title { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: 1.6rem; color: var(--white); font-style: italic; margin-bottom: 0.4rem; }
   .newsletter-sub { font-family: 'Jost', sans-serif; font-weight: 200; font-size: 0.72rem; letter-spacing: 0.15em; color: var(--gray-dark); margin-bottom: 1.8rem; }
-  .newsletter-form { display: flex; gap: 0; max-width: 380px; width: 100%; }
+  .newsletter-form { display: flex; gap: 0; max-width: 420px; width: 100%; }
   .newsletter-input { flex: 1; padding: 0.8rem 1rem; background: transparent; border: 0.5px solid rgba(255,255,255,0.2); border-right: none; color: var(--white); font-family: 'Jost', sans-serif; font-weight: 200; font-size: 0.78rem; letter-spacing: 0.08em; outline: none; }
   .newsletter-input::placeholder { color: rgba(255,255,255,0.3); }
   .newsletter-btn { padding: 0.8rem 1.4rem; background: transparent; border: 0.5px solid rgba(255,255,255,0.2); color: var(--white); font-family: 'Jost', sans-serif; font-weight: 200; font-size: 0.72rem; letter-spacing: 0.22em; text-transform: uppercase; cursor: pointer; transition: background 0.3s; }
@@ -244,41 +276,177 @@
   .social-link { font-family: 'Jost', sans-serif; font-weight: 200; font-size: 0.65rem; letter-spacing: 0.35em; text-transform: uppercase; color: rgba(255,255,255,0.4); text-decoration: none; transition: color 0.3s; }
   .social-link:hover { color: var(--white); }
 
-  /* ───── FOOTER ───── */
+  /* FOOTER */
   footer { background: var(--text-dark); border-top: 0.5px solid rgba(255,255,255,0.06); padding: 1.5rem 2rem; display: flex; justify-content: center; gap: 3rem; }
   footer a { font-family: 'Jost', sans-serif; font-weight: 200; font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase; color: rgba(255,255,255,0.25); text-decoration: none; transition: color 0.3s; }
   footer a:hover { color: rgba(255,255,255,0.6); }
 
-  @media (max-width: 900px) { .products-grid { grid-template-columns: repeat(2, 1fr); } }
-  @media (max-width: 480px) { .desc-block { padding: 2rem 1.5rem; } footer { gap: 1.5rem; flex-wrap: wrap; } }
+  /* AUTH */
+  .auth-shell {
+    min-height: calc(100vh - var(--header-h));
+    background: linear-gradient(180deg, var(--gray-light) 0%, var(--white) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 1.5rem;
+  }
+  .auth-card {
+    width: 100%;
+    max-width: 560px;
+    background: var(--beige);
+    border: 0.5px solid var(--beige-dark);
+    padding: 2.4rem;
+    box-shadow: 0 18px 60px rgba(0,0,0,0.06);
+  }
+  .auth-eyebrow {
+    font-size: 0.62rem;
+    letter-spacing: 0.45em;
+    text-transform: uppercase;
+    color: var(--gray-dark);
+    margin-bottom: 1rem;
+  }
+  .auth-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.2rem;
+    font-weight: 300;
+    line-height: 1.1;
+    margin-bottom: 0.8rem;
+  }
+  .auth-text {
+    color: var(--text-mid);
+    font-size: 0.9rem;
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+  }
+  .auth-form {
+    display: grid;
+    gap: 0.95rem;
+  }
+  .auth-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.95rem;
+  }
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+  }
+  .field label {
+    font-size: 0.68rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-mid);
+  }
+  .field input {
+    width: 100%;
+    padding: 0.95rem 1rem;
+    border: 0.5px solid var(--beige-dark);
+    background: rgba(255,255,255,0.42);
+    color: var(--text-dark);
+    outline: none;
+  }
+  .field input:focus {
+    border-color: var(--text-dark);
+    background: rgba(255,255,255,0.75);
+  }
+  .auth-btn {
+    padding: 0.95rem 1.2rem;
+    border: none;
+    background: var(--text-dark);
+    color: var(--white);
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    font-size: 0.72rem;
+    cursor: pointer;
+    margin-top: 0.4rem;
+  }
+  .auth-btn.secondary {
+    background: transparent;
+    color: var(--text-dark);
+    border: 0.5px solid var(--beige-dark);
+  }
+  .auth-switch {
+    margin-top: 1.2rem;
+    font-size: 0.82rem;
+    color: var(--text-mid);
+  }
+  .auth-switch a {
+    text-decoration: none;
+    border-bottom: 0.5px solid currentColor;
+  }
+  .auth-message {
+    min-height: 24px;
+    font-size: 0.82rem;
+    margin-top: 0.3rem;
+  }
+  .auth-message.success { color: var(--success); }
+  .auth-message.error { color: var(--danger); }
+  .account-panel {
+    margin-top: 1.4rem;
+    padding-top: 1.2rem;
+    border-top: 0.5px solid rgba(42,40,38,0.14);
+    display: none;
+    gap: 0.8rem;
+  }
+  .account-panel.visible { display: grid; }
+  .account-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem;
+  }
+  .account-meta { color: var(--text-mid); font-size: 0.88rem; }
+  .home-link {
+    display: inline-block;
+    margin-top: 0.9rem;
+    text-decoration: none;
+    font-size: 0.74rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  @media (max-width: 900px) {
+    .products-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 640px) {
+    header { padding: 0 1rem; }
+    .header-center a { font-size: 11px; letter-spacing: 0.24em; }
+    .auth-card { padding: 1.6rem; }
+    .auth-grid { grid-template-columns: 1fr; }
+    .newsletter-form { flex-direction: column; }
+    .newsletter-input { border-right: 0.5px solid rgba(255,255,255,0.2); }
+    .desc-block { padding: 2rem 1.5rem; }
+    footer { gap: 1.5rem; flex-wrap: wrap; }
+  }
 </style>
 </head>
 <body>
 
-<!-- MENU OVERLAY -->
 <div class="menu-overlay" id="menuOverlay">
   <button class="menu-close" onclick="closeMenu()">Fermer ✕</button>
   <nav class="menu-links">
-    <a href="#">Accueil</a>
-    <a href="#">Boutique</a>
-    <a href="#">L'Essentiel Brow</a>
-    <a href="#">L'Essentiel Lash</a>
-    <a href="#">À propos</a>
-    <a href="#">Contact</a>
+    <a href="#home" onclick="closeMenu()">Accueil</a>
+    <a href="#home" onclick="closeMenu()">Boutique</a>
+    <a href="#home" onclick="closeMenu()">L'Essentiel Brow</a>
+    <a href="#home" onclick="closeMenu()">L'Essentiel Lash</a>
+    <a href="#signup" onclick="closeMenu()">Créer un compte</a>
+    <a href="#login" onclick="closeMenu()">Connexion</a>
+    <a href="#home" onclick="closeMenu()">Contact</a>
   </nav>
 </div>
 
-<!-- HEADER -->
 <header>
   <div class="header-left">
     <div class="hamburger" onclick="openMenu()">
       <span></span><span></span><span></span>
     </div>
   </div>
-  <div class="header-center"><a href="#">Studio of Beauty</a></div>
+
+  <div class="header-center"><a href="#home">Studio of Beauty</a></div>
+
   <div class="header-right">
-    <div class="header-icon">
-      <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.58-7 8-7s8 3 8 7"/></svg>
+    <div class="header-icon" id="accountIcon" onclick="goToAccount()" title="Compte">
+      <svg id="accountSvg" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.58-7 8-7s8 3 8 7"/></svg>
+      <span class="avatar-badge" id="avatarBadge">A B</span>
     </div>
     <div class="header-icon" style="position:relative;">
       <svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
@@ -287,219 +455,461 @@
   </div>
 </header>
 
-<!-- HERO -->
-<section class="hero">
-  <div class="hero-placeholder">
-    <div class="hero-figure-inner"></div>
-  </div>
-  <div class="hero-label">
-    <h1 class="hero-title">Studio of Beauty</h1>
-    <p class="hero-sub">Carnets digitaux · Beauté & Précision</p>
-  </div>
-</section>
+<main>
+  <!-- HOME -->
+  <section id="page-home" class="page-view active">
+    <section class="hero">
+      <div class="hero-placeholder">
+        <div class="hero-figure-inner"></div>
+      </div>
+      <div class="hero-label">
+        <h1 class="hero-title">Studio of Beauty</h1>
+        <p class="hero-sub">Carnets digitaux · Beauté & Précision</p>
+      </div>
+    </section>
 
-<!-- PRODUCTS -->
-<section class="products-section">
-  <p class="section-label">Nos créations</p>
-  <div class="products-grid">
-
-    <!-- PRODUIT 1 : L'Essentiel Brow — Beige -->
-    <div class="product-card card-brow-beige">
-      <div class="product-img-wrap">
-        <span class="product-badge badge-brow">Brow</span>
-        <span class="color-dot dot-beige"></span>
-        <div class="product-img-main">
-          <div class="prod-book-wrap">
-            <div class="prod-book book-brow-beige">
-              <div class="prod-book-spine"></div>
-              <div class="prod-book-text">L'Essentiel<br>Brow</div>
-              <div class="prod-book-line"></div>
+    <section class="products-section">
+      <p class="section-label">Nos créations</p>
+      <div class="products-grid">
+        <div class="product-card card-brow-beige">
+          <div class="product-img-wrap">
+            <span class="product-badge badge-brow">Brow</span>
+            <span class="color-dot dot-beige"></span>
+            <div class="product-img-main">
+              <div class="prod-book-wrap">
+                <div class="prod-book book-brow-beige">
+                  <div class="prod-book-spine"></div>
+                  <div class="prod-book-text">L'Essentiel<br>Brow</div>
+                  <div class="prod-book-line"></div>
+                </div>
+              </div>
+            </div>
+            <div class="product-img-hover">
+              <div class="prod-open-wrap">
+                <div class="prod-page page-brow-beige">
+                  <div class="prod-page-title">Techniques</div>
+                  <div class="prod-page-line"></div><div class="prod-page-line"></div>
+                  <div class="prod-page-line"></div><div class="prod-page-line"></div>
+                </div>
+                <div class="prod-page page-brow-beige">
+                  <div class="prod-page-title">Suivi</div>
+                  <div class="prod-page-line"></div><div class="prod-page-line"></div>
+                </div>
+              </div>
             </div>
           </div>
+          <div class="product-info">
+            <div class="product-name">L'Essentiel Brow<span>Version Beige</span></div>
+            <div class="product-price">8,95 €</div>
+          </div>
         </div>
-        <div class="product-img-hover">
-          <div class="prod-open-wrap">
-            <div class="prod-page page-brow-beige">
-              <div class="prod-page-title">Techniques</div>
-              <div class="prod-page-line"></div><div class="prod-page-line"></div>
-              <div class="prod-page-line"></div><div class="prod-page-line"></div>
+
+        <div class="product-card card-brow-gray">
+          <div class="product-img-wrap">
+            <span class="product-badge badge-brow">Brow</span>
+            <span class="color-dot dot-gray"></span>
+            <div class="product-img-main">
+              <div class="prod-book-wrap">
+                <div class="prod-book book-brow-gray">
+                  <div class="prod-book-spine"></div>
+                  <div class="prod-book-text">L'Essentiel<br>Brow</div>
+                  <div class="prod-book-line"></div>
+                </div>
+              </div>
             </div>
-            <div class="prod-page page-brow-beige">
-              <div class="prod-page-title">Suivi</div>
-              <div class="prod-page-line"></div><div class="prod-page-line"></div>
+            <div class="product-img-hover">
+              <div class="prod-open-wrap">
+                <div class="prod-page page-brow-gray">
+                  <div class="prod-page-title">Techniques</div>
+                  <div class="prod-page-line"></div><div class="prod-page-line"></div>
+                  <div class="prod-page-line"></div><div class="prod-page-line"></div>
+                </div>
+                <div class="prod-page page-brow-gray">
+                  <div class="prod-page-title">Suivi</div>
+                  <div class="prod-page-line"></div><div class="prod-page-line"></div>
+                </div>
+              </div>
             </div>
+          </div>
+          <div class="product-info">
+            <div class="product-name">L'Essentiel Brow<span>Version Gris</span></div>
+            <div class="product-price">8,95 €</div>
+          </div>
+        </div>
+
+        <div class="product-card card-lash-beige">
+          <div class="product-img-wrap">
+            <span class="product-badge badge-lash">Lash</span>
+            <span class="color-dot dot-beige"></span>
+            <div class="product-img-main">
+              <div class="prod-book-wrap">
+                <div class="prod-book book-lash-beige">
+                  <div class="prod-book-spine"></div>
+                  <div class="prod-book-text">L'Essentiel<br>Lash</div>
+                  <div class="prod-book-line"></div>
+                </div>
+              </div>
+            </div>
+            <div class="product-img-hover">
+              <div class="prod-open-wrap">
+                <div class="prod-page page-lash-beige">
+                  <div class="prod-page-title">Extensions</div>
+                  <div class="prod-page-line"></div><div class="prod-page-line"></div>
+                  <div class="prod-page-line"></div><div class="prod-page-line"></div>
+                </div>
+                <div class="prod-page page-lash-beige">
+                  <div class="prod-page-title">Suivi</div>
+                  <div class="prod-page-line"></div><div class="prod-page-line"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="product-info">
+            <div class="product-name">L'Essentiel Lash<span>Version Beige</span></div>
+            <div class="product-price">8,95 €</div>
+          </div>
+        </div>
+
+        <div class="product-card card-lash-gray">
+          <div class="product-img-wrap">
+            <span class="product-badge badge-lash">Lash</span>
+            <span class="color-dot dot-gray"></span>
+            <div class="product-img-main">
+              <div class="prod-book-wrap">
+                <div class="prod-book book-lash-gray">
+                  <div class="prod-book-spine"></div>
+                  <div class="prod-book-text">L'Essentiel<br>Lash</div>
+                  <div class="prod-book-line"></div>
+                </div>
+              </div>
+            </div>
+            <div class="product-img-hover">
+              <div class="prod-open-wrap">
+                <div class="prod-page page-lash-gray">
+                  <div class="prod-page-title">Extensions</div>
+                  <div class="prod-page-line"></div><div class="prod-page-line"></div>
+                  <div class="prod-page-line"></div><div class="prod-page-line"></div>
+                </div>
+                <div class="prod-page page-lash-gray">
+                  <div class="prod-page-title">Suivi</div>
+                  <div class="prod-page-line"></div><div class="prod-page-line"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="product-info">
+            <div class="product-name">L'Essentiel Lash<span>Version Gris</span></div>
+            <div class="product-price">8,95 €</div>
           </div>
         </div>
       </div>
-      <div class="product-info">
-        <div class="product-name">L'Essentiel Brow<span>Version Beige</span></div>
-        <div class="product-price">8,95 €</div>
+    </section>
+
+    <section class="desc-section">
+      <div class="desc-block">
+        <p class="desc-eyebrow">La méthode Studio of Beauty</p>
+        <h2 class="desc-title">Des carnets pensés pour sublimer votre regard, au quotidien.</h2>
+        <p class="desc-body">
+          L'Essentiel Brow et L'Essentiel Lash sont des carnets digitaux conçus pour accompagner les professionnelles et les passionnées de beauté dans leur routine regard. Chaque carnet centralise tout ce dont vous avez besoin : techniques, suivis, inspirations et conseils personnalisés.
+        </p>
+        <ul class="desc-list">
+          <li>Organisez vos soins sourcils et cils en un seul endroit</li>
+          <li>Suivez vos progrès et vos techniques pas à pas</li>
+          <li>Accédez à des contenus exclusifs et des méthodes éprouvées</li>
+          <li>Compatible avec toutes les applications de lecture PDF & digitale</li>
+          <li>Disponible en version Beige ou Gris pour s'adapter à votre style</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="video-section">
+      <p class="video-label">Tutoriels & Méthodes</p>
+      <div class="video-placeholder">
+        <div class="play-btn">
+          <svg viewBox="0 0 16 16"><polygon points="3,1 15,8 3,15"/></svg>
+        </div>
+        <p class="video-caption">Comment utiliser votre carnet digital</p>
+      </div>
+    </section>
+
+    <section class="newsletter-section">
+      <p class="newsletter-brand">Studio of Beauty</p>
+      <h2 class="newsletter-title">Rejoignez la communauté</h2>
+      <p class="newsletter-sub">Nouveautés, conseils exclusifs & offres réservées aux abonnés</p>
+      <form class="newsletter-form" id="newsletterForm">
+        <input class="newsletter-input" id="newsletterEmail" type="email" placeholder="Votre adresse e-mail" required>
+        <button class="newsletter-btn" type="submit">S'inscrire</button>
+      </form>
+      <div class="social-row">
+        <a href="#" class="social-link">TikTok</a>
+        <a href="#" class="social-link">Instagram</a>
+      </div>
+    </section>
+
+    <footer>
+      <a href="#">FAQ</a>
+      <a href="#">Contact</a>
+      <a href="#">Mentions légales</a>
+    </footer>
+  </section>
+
+  <!-- SIGNUP -->
+  <section id="page-signup" class="page-view">
+    <div class="auth-shell">
+      <div class="auth-card">
+        <p class="auth-eyebrow">Créer un compte</p>
+        <h1 class="auth-title">Rejoignez l'univers Studio of Beauty</h1>
+        <p class="auth-text">Créez votre espace personnel pour retrouver vos informations et préparer l'accès à vos contenus.</p>
+
+        <form class="auth-form" id="signupForm">
+          <div class="auth-grid">
+            <div class="field">
+              <label for="signupFirstName">Prénom</label>
+              <input id="signupFirstName" type="text" required>
+            </div>
+            <div class="field">
+              <label for="signupLastName">Nom</label>
+              <input id="signupLastName" type="text" required>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="signupEmail">Adresse e-mail</label>
+            <input id="signupEmail" type="email" required>
+          </div>
+
+          <div class="field">
+            <label for="signupPassword">Mot de passe</label>
+            <input id="signupPassword" type="password" minlength="6" required>
+          </div>
+
+          <button class="auth-btn" type="submit">Créer mon compte</button>
+          <div class="auth-message" id="signupMessage"></div>
+        </form>
+
+        <p class="auth-switch">Vous avez déjà un compte ? <a href="#login">Se connecter</a></p>
+        <a class="home-link" href="#home">Retour à l'accueil</a>
       </div>
     </div>
+  </section>
 
-    <!-- PRODUIT 2 : L'Essentiel Brow — Gris -->
-    <div class="product-card card-brow-gray">
-      <div class="product-img-wrap">
-        <span class="product-badge badge-brow">Brow</span>
-        <span class="color-dot dot-gray"></span>
-        <div class="product-img-main">
-          <div class="prod-book-wrap">
-            <div class="prod-book book-brow-gray">
-              <div class="prod-book-spine"></div>
-              <div class="prod-book-text">L'Essentiel<br>Brow</div>
-              <div class="prod-book-line"></div>
-            </div>
-          </div>
-        </div>
-        <div class="product-img-hover">
-          <div class="prod-open-wrap">
-            <div class="prod-page page-brow-gray">
-              <div class="prod-page-title">Techniques</div>
-              <div class="prod-page-line"></div><div class="prod-page-line"></div>
-              <div class="prod-page-line"></div><div class="prod-page-line"></div>
-            </div>
-            <div class="prod-page page-brow-gray">
-              <div class="prod-page-title">Suivi</div>
-              <div class="prod-page-line"></div><div class="prod-page-line"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="product-info">
-        <div class="product-name">L'Essentiel Brow<span>Version Gris</span></div>
-        <div class="product-price">8,95 €</div>
-      </div>
-    </div>
+  <!-- LOGIN -->
+  <section id="page-login" class="page-view">
+    <div class="auth-shell">
+      <div class="auth-card">
+        <p class="auth-eyebrow">Connexion</p>
+        <h1 class="auth-title">Connectez-vous à votre compte</h1>
+        <p class="auth-text">Entrez votre adresse e-mail et votre mot de passe pour accéder à votre espace.</p>
 
-    <!-- PRODUIT 3 : L'Essentiel Lash — Beige -->
-    <div class="product-card card-lash-beige">
-      <div class="product-img-wrap">
-        <span class="product-badge badge-lash">Lash</span>
-        <span class="color-dot dot-beige"></span>
-        <div class="product-img-main">
-          <div class="prod-book-wrap">
-            <div class="prod-book book-lash-beige">
-              <div class="prod-book-spine"></div>
-              <div class="prod-book-text">L'Essentiel<br>Lash</div>
-              <div class="prod-book-line"></div>
-            </div>
+        <form class="auth-form" id="loginForm">
+          <div class="field">
+            <label for="loginEmail">Adresse e-mail</label>
+            <input id="loginEmail" type="email" required>
           </div>
-        </div>
-        <div class="product-img-hover">
-          <div class="prod-open-wrap">
-            <div class="prod-page page-lash-beige">
-              <div class="prod-page-title">Extensions</div>
-              <div class="prod-page-line"></div><div class="prod-page-line"></div>
-              <div class="prod-page-line"></div><div class="prod-page-line"></div>
-            </div>
-            <div class="prod-page page-lash-beige">
-              <div class="prod-page-title">Suivi</div>
-              <div class="prod-page-line"></div><div class="prod-page-line"></div>
-            </div>
+
+          <div class="field">
+            <label for="loginPassword">Mot de passe</label>
+            <input id="loginPassword" type="password" required>
           </div>
+
+          <button class="auth-btn" type="submit">Se connecter</button>
+          <div class="auth-message" id="loginMessage"></div>
+        </form>
+
+        <div class="account-panel" id="accountPanel">
+          <div class="account-name" id="accountName"></div>
+          <div class="account-meta" id="accountEmail"></div>
+          <button class="auth-btn secondary" type="button" onclick="logout()">Se déconnecter</button>
         </div>
-      </div>
-      <div class="product-info">
-        <div class="product-name">L'Essentiel Lash<span>Version Beige</span></div>
-        <div class="product-price">8,95 €</div>
+
+        <p class="auth-switch">Pas encore de compte ? <a href="#signup">Créer un compte</a></p>
+        <a class="home-link" href="#home">Retour à l'accueil</a>
       </div>
     </div>
-
-    <!-- PRODUIT 4 : L'Essentiel Lash — Gris -->
-    <div class="product-card card-lash-gray">
-      <div class="product-img-wrap">
-        <span class="product-badge badge-lash">Lash</span>
-        <span class="color-dot dot-gray"></span>
-        <div class="product-img-main">
-          <div class="prod-book-wrap">
-            <div class="prod-book book-lash-gray">
-              <div class="prod-book-spine"></div>
-              <div class="prod-book-text">L'Essentiel<br>Lash</div>
-              <div class="prod-book-line"></div>
-            </div>
-          </div>
-        </div>
-        <div class="product-img-hover">
-          <div class="prod-open-wrap">
-            <div class="prod-page page-lash-gray">
-              <div class="prod-page-title">Extensions</div>
-              <div class="prod-page-line"></div><div class="prod-page-line"></div>
-              <div class="prod-page-line"></div><div class="prod-page-line"></div>
-            </div>
-            <div class="prod-page page-lash-gray">
-              <div class="prod-page-title">Suivi</div>
-              <div class="prod-page-line"></div><div class="prod-page-line"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="product-info">
-        <div class="product-name">L'Essentiel Lash<span>Version Gris</span></div>
-        <div class="product-price">8,95 €</div>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-<!-- DESCRIPTION -->
-<section class="desc-section">
-  <div class="desc-block">
-    <p class="desc-eyebrow">La méthode Studio of Beauty</p>
-    <h2 class="desc-title">Des carnets pensés pour sublimer votre regard, au quotidien.</h2>
-    <p class="desc-body">
-      L'Essentiel Brow et L'Essentiel Lash sont des carnets digitaux conçus pour accompagner les professionnelles et les passionnées de beauté dans leur routine regard. Chaque carnet centralise tout ce dont vous avez besoin : techniques, suivis, inspirations et conseils personnalisés.
-    </p>
-    <ul class="desc-list">
-      <li>Organisez vos soins sourcils et cils en un seul endroit</li>
-      <li>Suivez vos progrès et vos techniques pas à pas</li>
-      <li>Accédez à des contenus exclusifs et des méthodes éprouvées</li>
-      <li>Compatible avec toutes les applications de lecture PDF & digitale</li>
-      <li>Disponible en version Beige ou Gris pour s'adapter à votre style</li>
-    </ul>
-  </div>
-</section>
-
-<!-- VIDEO -->
-<section class="video-section">
-  <p class="video-label">Tutoriels & Méthodes</p>
-  <div class="video-placeholder">
-    <div class="play-btn">
-      <svg viewBox="0 0 16 16"><polygon points="3,1 15,8 3,15"/></svg>
-    </div>
-    <p class="video-caption">Comment utiliser votre carnet digital</p>
-  </div>
-</section>
-
-<!-- NEWSLETTER -->
-<section class="newsletter-section">
-  <p class="newsletter-brand">Studio of Beauty</p>
-  <h2 class="newsletter-title">Rejoignez la communauté</h2>
-  <p class="newsletter-sub">Nouveautés, conseils exclusifs & offres réservées aux abonnés</p>
-  <div class="newsletter-form">
-    <input class="newsletter-input" type="email" placeholder="Votre adresse e-mail">
-    <button class="newsletter-btn">S'inscrire</button>
-  </div>
-  <div class="social-row">
-    <a href="#" class="social-link">TikTok</a>
-    <a href="#" class="social-link">Instagram</a>
-  </div>
-</section>
-
-<!-- FOOTER -->
-<footer>
-  <a href="#">FAQ</a>
-  <a href="#">Contact</a>
-  <a href="#">Mentions légales</a>
-</footer>
+  </section>
+</main>
 
 <script>
-  function openMenu()  { document.getElementById('menuOverlay').classList.add('open'); }
+  function openMenu() { document.getElementById('menuOverlay').classList.add('open'); }
   function closeMenu() { document.getElementById('menuOverlay').classList.remove('open'); }
   document.getElementById('menuOverlay').addEventListener('click', function(e) {
     if (e.target === this) closeMenu();
   });
-</script>
 
+  const STORAGE_USERS = 'sob_users';
+  const STORAGE_SESSION = 'sob_current_user';
+
+  function getUsers() {
+    return JSON.parse(localStorage.getItem(STORAGE_USERS) || '[]');
+  }
+
+  function saveUsers(users) {
+    localStorage.setItem(STORAGE_USERS, JSON.stringify(users));
+  }
+
+  function getCurrentUser() {
+    return JSON.parse(localStorage.getItem(STORAGE_SESSION) || 'null');
+  }
+
+  function saveCurrentUser(user) {
+    localStorage.setItem(STORAGE_SESSION, JSON.stringify(user));
+  }
+
+  function getInitial(value) {
+    return value && value.trim() ? value.trim().charAt(0).toUpperCase() : '';
+  }
+
+  function getUserLetters(user) {
+    return `${getInitial(user.firstName)} ${getInitial(user.lastName)}`.trim();
+  }
+
+  function showMessage(elementId, text, type) {
+    const el = document.getElementById(elementId);
+    el.textContent = text;
+    el.className = `auth-message ${type}`;
+  }
+
+  function updateHeaderAccount() {
+    const currentUser = getCurrentUser();
+    const avatar = document.getElementById('avatarBadge');
+    const svg = document.getElementById('accountSvg');
+
+    if (currentUser) {
+      avatar.textContent = getUserLetters(currentUser);
+      avatar.classList.add('visible');
+      svg.style.display = 'none';
+    } else {
+      avatar.textContent = '';
+      avatar.classList.remove('visible');
+      svg.style.display = 'block';
+    }
+
+    updateAccountPanel();
+  }
+
+  function updateAccountPanel() {
+    const currentUser = getCurrentUser();
+    const panel = document.getElementById('accountPanel');
+    const name = document.getElementById('accountName');
+    const email = document.getElementById('accountEmail');
+
+    if (!panel) return;
+
+    if (currentUser) {
+      panel.classList.add('visible');
+      name.textContent = `${currentUser.firstName} ${currentUser.lastName}`;
+      email.textContent = currentUser.email;
+    } else {
+      panel.classList.remove('visible');
+      name.textContent = '';
+      email.textContent = '';
+    }
+  }
+
+  function showPageFromHash() {
+    const hash = window.location.hash || '#home';
+    const route = ['#home', '#signup', '#login'].includes(hash) ? hash : '#home';
+
+    document.querySelectorAll('.page-view').forEach(section => section.classList.remove('active'));
+    document.getElementById(`page-${route.replace('#', '')}`).classList.add('active');
+    closeMenu();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    updateAccountPanel();
+  }
+
+  function goToAccount() {
+    if (getCurrentUser()) {
+      location.hash = '#login';
+    } else {
+      location.hash = '#signup';
+    }
+  }
+
+  function logout() {
+    localStorage.removeItem(STORAGE_SESSION);
+    updateHeaderAccount();
+    showMessage('loginMessage', 'Vous êtes déconnecté.', 'success');
+    location.hash = '#home';
+  }
+
+  document.getElementById('newsletterForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const email = document.getElementById('newsletterEmail').value.trim();
+    if (!email) return;
+    localStorage.setItem('sob_prefill_email', email);
+    location.hash = '#signup';
+  });
+
+  document.getElementById('signupForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const firstName = document.getElementById('signupFirstName').value.trim();
+    const lastName = document.getElementById('signupLastName').value.trim();
+    const email = document.getElementById('signupEmail').value.trim().toLowerCase();
+    const password = document.getElementById('signupPassword').value;
+
+    if (!firstName || !lastName || !email || !password) {
+      showMessage('signupMessage', 'Merci de remplir tous les champs.', 'error');
+      return;
+    }
+
+    if (password.length < 6) {
+      showMessage('signupMessage', 'Le mot de passe doit contenir au moins 6 caractères.', 'error');
+      return;
+    }
+
+    const users = getUsers();
+    const existing = users.find(user => user.email === email);
+    if (existing) {
+      showMessage('signupMessage', 'Un compte existe déjà avec cette adresse e-mail.', 'error');
+      return;
+    }
+
+    const newUser = { firstName, lastName, email, password };
+    users.push(newUser);
+    saveUsers(users);
+    saveCurrentUser(newUser);
+    updateHeaderAccount();
+    showMessage('signupMessage', 'Compte créé avec succès. Vous êtes maintenant connecté.', 'success');
+    this.reset();
+
+    setTimeout(() => {
+      location.hash = '#login';
+      showMessage('loginMessage', 'Connexion active.', 'success');
+    }, 900);
+  });
+
+  document.getElementById('loginForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const email = document.getElementById('loginEmail').value.trim().toLowerCase();
+    const password = document.getElementById('loginPassword').value;
+
+    const users = getUsers();
+    const user = users.find(item => item.email === email && item.password === password);
+
+    if (!user) {
+      showMessage('loginMessage', 'E-mail ou mot de passe incorrect.', 'error');
+      return;
+    }
+
+    saveCurrentUser(user);
+    updateHeaderAccount();
+    showMessage('loginMessage', `Bienvenue ${user.firstName}.`, 'success');
+    this.reset();
+  });
+
+  window.addEventListener('hashchange', showPageFromHash);
+
+  window.addEventListener('DOMContentLoaded', () => {
+    const prefillEmail = localStorage.getItem('sob_prefill_email');
+    if (prefillEmail) {
+      document.getElementById('signupEmail').value = prefillEmail;
+      localStorage.removeItem('sob_prefill_email');
+    }
+    updateHeaderAccount();
+    showPageFromHash();
+  });
+</script>
 </body>
 </html>
