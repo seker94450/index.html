@@ -32,7 +32,6 @@
   a { color: inherit; }
   button, input { font: inherit; }
 
-  /* HEADER */
   header {
     position: fixed; top: 0; left: 0; right: 0; z-index: 100;
     height: var(--header-h);
@@ -75,7 +74,6 @@
   }
   .avatar-badge.visible { display: inline-flex; }
 
-  /* MENU */
   .menu-overlay {
     position: fixed; inset: 0; background: var(--beige); z-index: 200;
     transform: translateX(-100%); transition: transform 0.45s cubic-bezier(.77,0,.175,1);
@@ -96,12 +94,9 @@
   .menu-links a:hover { color: var(--gray-dark); }
 
   main { padding-top: var(--header-h); }
-
-  /* PAGES */
   .page-view { display: none; }
   .page-view.active { display: block; }
 
-  /* HERO */
   .hero {
     position: relative;
     height: calc(100vh - var(--header-h));
@@ -135,7 +130,6 @@
     text-transform: uppercase;
   }
 
-  /* PRODUCTS */
   .products-section { padding: 4rem 2rem 2rem; background: var(--white); }
   .section-label {
     font-family: 'Jost', sans-serif; font-weight: 200; font-size: 0.68rem;
@@ -236,7 +230,6 @@
   .product-name span { display: block; font-size: 0.62rem; color: var(--gray-dark); font-weight: 200; letter-spacing: 0.08em; margin-top: 2px; }
   .product-price { font-family: 'Cormorant Garamond', serif; font-weight: 400; font-size: 1rem; color: var(--text-dark); }
 
-  /* DESCRIPTION */
   .desc-section { padding: 4rem 2rem; display: flex; justify-content: center; background: var(--white); }
   .desc-block { max-width: 720px; width: 100%; border: 0.5px solid var(--beige-dark); padding: 3rem 3.5rem; background: var(--beige); }
   .desc-eyebrow { font-family: 'Jost', sans-serif; font-weight: 200; font-size: 0.62rem; letter-spacing: 0.55em; text-transform: uppercase; color: var(--gray-dark); margin-bottom: 1.4rem; }
@@ -246,7 +239,6 @@
   .desc-list li { font-family: 'Jost', sans-serif; font-weight: 200; font-size: 0.78rem; color: var(--text-mid); padding-left: 1rem; position: relative; letter-spacing: 0.03em; }
   .desc-list li::before { content: '—'; position: absolute; left: 0; color: var(--beige-dark); }
 
-  /* VIDEO */
   .video-section { padding: 2.5rem 2rem 4rem; background: var(--gray-light); display: flex; flex-direction: column; align-items: center; gap: 1rem; }
   .video-label { font-family: 'Jost', sans-serif; font-weight: 200; font-size: 0.65rem; letter-spacing: 0.5em; text-transform: uppercase; color: var(--gray-dark); }
   .video-placeholder {
@@ -262,7 +254,6 @@
   .video-placeholder:hover .play-btn svg { fill: var(--white); }
   .video-caption { font-family: 'Jost', sans-serif; font-weight: 200; font-size: 0.72rem; letter-spacing: 0.2em; color: var(--text-mid); text-transform: uppercase; }
 
-  /* NEWSLETTER */
   .newsletter-section { padding: 5rem 2rem; background: var(--text-dark); display: flex; flex-direction: column; align-items: center; gap: 0.6rem; text-align: center; }
   .newsletter-brand { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: 1.1rem; letter-spacing: 0.35em; color: var(--beige-mid); text-transform: uppercase; margin-bottom: 0.8rem; }
   .newsletter-title { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: 1.6rem; color: var(--white); font-style: italic; margin-bottom: 0.4rem; }
@@ -276,12 +267,10 @@
   .social-link { font-family: 'Jost', sans-serif; font-weight: 200; font-size: 0.65rem; letter-spacing: 0.35em; text-transform: uppercase; color: rgba(255,255,255,0.4); text-decoration: none; transition: color 0.3s; }
   .social-link:hover { color: var(--white); }
 
-  /* FOOTER */
   footer { background: var(--text-dark); border-top: 0.5px solid rgba(255,255,255,0.06); padding: 1.5rem 2rem; display: flex; justify-content: center; gap: 3rem; }
   footer a { font-family: 'Jost', sans-serif; font-weight: 200; font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase; color: rgba(255,255,255,0.25); text-decoration: none; transition: color 0.3s; }
   footer a:hover { color: rgba(255,255,255,0.6); }
 
-  /* AUTH */
   .auth-shell {
     min-height: calc(100vh - var(--header-h));
     background: linear-gradient(180deg, var(--gray-light) 0%, var(--white) 100%);
@@ -318,20 +307,9 @@
     line-height: 1.8;
     margin-bottom: 1.5rem;
   }
-  .auth-form {
-    display: grid;
-    gap: 0.95rem;
-  }
-  .auth-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 0.95rem;
-  }
-  .field {
-    display: flex;
-    flex-direction: column;
-    gap: 0.45rem;
-  }
+  .auth-form { display: grid; gap: 0.95rem; }
+  .auth-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.95rem; }
+  .field { display: flex; flex-direction: column; gap: 0.45rem; }
   .field label {
     font-size: 0.68rem;
     letter-spacing: 0.18em;
@@ -350,6 +328,18 @@
     border-color: var(--text-dark);
     background: rgba(255,255,255,0.75);
   }
+  .password-field { position: relative; }
+  .password-field input { padding-right: 3.5rem; }
+  .password-toggle {
+    position: absolute;
+    right: 0.9rem;
+    top: 2.45rem;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    font-size: 1rem;
+    line-height: 1;
+  }
   .auth-btn {
     padding: 0.95rem 1.2rem;
     border: none;
@@ -365,107 +355,6 @@
     background: transparent;
     color: var(--text-dark);
     border: 0.5px solid var(--beige-dark);
-  }
-  .password-field {
-    position: relative;
-  }
-  .password-field input {
-    padding-right: 3.4rem;
-  }
-  .password-toggle {
-    position: absolute;
-    right: 0.85rem;
-    top: 50%;
-    transform: translateY(-50%);
-    border: none;
-    background: transparent;
-    cursor: pointer;
-    color: var(--text-mid);
-    font-size: 1rem;
-    line-height: 1;
-  }
-  .account-sheet {
-    min-height: calc(100vh - var(--header-h));
-    background: linear-gradient(180deg, var(--gray-light) 0%, var(--white) 100%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 3rem 1rem;
-  }
-  .account-card {
-    width: 100%;
-    max-width: 430px;
-    background: #efefef;
-    border: 0.5px solid var(--gray-mid);
-    box-shadow: 0 18px 60px rgba(0,0,0,0.06);
-    overflow: hidden;
-  }
-  .account-card-top {
-    position: relative;
-    padding: 1.2rem 1rem 0.8rem;
-    text-align: center;
-    background: #f7f7f7;
-  }
-  .account-close {
-    position: absolute;
-    top: 0.75rem;
-    right: 0.9rem;
-    border: none;
-    background: transparent;
-    font-size: 2rem;
-    line-height: 1;
-    color: var(--text-dark);
-    cursor: pointer;
-  }
-  .account-user-icon {
-    font-size: 4rem;
-    line-height: 1;
-    margin-bottom: 0.5rem;
-  }
-  .account-fullname {
-    font-size: 1.8rem;
-    font-family: 'Cormorant Garamond', serif;
-    margin-bottom: 1rem;
-  }
-  .account-main-btn {
-    width: 100%;
-    border: 0.5px solid var(--gray-dark);
-    background: transparent;
-    color: var(--text-dark);
-    padding: 0.9rem 1rem;
-    font-size: 1rem;
-    cursor: default;
-  }
-  .account-menu {
-    padding: 1.2rem 1rem 0;
-    background: #f3f3f3;
-  }
-  .account-menu-item {
-    display: flex;
-    align-items: center;
-    gap: 0.9rem;
-    padding: 1rem 0.35rem;
-    text-decoration: none;
-    color: var(--text-dark);
-    font-size: 1rem;
-  }
-  .account-menu-emoji {
-    font-size: 1.4rem;
-  }
-  .account-logout {
-    margin-top: 1rem;
-    background: var(--beige-dark);
-    padding: 1.1rem 1rem;
-    display: flex;
-    justify-content: center;
-  }
-  .account-logout button {
-    border: none;
-    background: transparent;
-    color: var(--text-dark);
-    font-size: 1rem;
-    font-weight: 400;
-    cursor: pointer;
   }
   .auth-switch {
     margin-top: 1.2rem;
@@ -505,6 +394,87 @@
     text-transform: uppercase;
   }
 
+  .account-sheet {
+    min-height: calc(100vh - var(--header-h));
+    background: linear-gradient(180deg, var(--gray-light) 0%, var(--white) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 1rem;
+  }
+  .account-card {
+    width: 100%;
+    max-width: 430px;
+    background: #f3f1ee;
+    border: 0.5px solid var(--gray-mid);
+    box-shadow: 0 18px 60px rgba(0,0,0,0.06);
+    overflow: hidden;
+  }
+  .account-card-top {
+    position: relative;
+    padding: 1.2rem 1rem 1rem;
+    text-align: center;
+    background: #f8f6f3;
+  }
+  .account-close {
+    position: absolute;
+    top: 0.7rem;
+    right: 0.9rem;
+    border: none;
+    background: transparent;
+    font-size: 2rem;
+    line-height: 1;
+    color: var(--text-dark);
+    cursor: pointer;
+  }
+  .account-user-icon {
+    font-size: 4rem;
+    line-height: 1;
+    margin-bottom: 0.4rem;
+  }
+  .account-fullname {
+    font-size: 1.8rem;
+    font-family: 'Cormorant Garamond', serif;
+    margin-bottom: 1rem;
+  }
+  .account-main-btn {
+    width: 100%;
+    border: 0.5px solid var(--gray-dark);
+    background: transparent;
+    color: var(--text-dark);
+    padding: 0.9rem 1rem;
+    font-size: 1rem;
+    cursor: default;
+  }
+  .account-menu {
+    padding: 1.15rem 1rem 0;
+    background: #efedea;
+  }
+  .account-menu-item {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    padding: 1rem 0.35rem;
+    text-decoration: none;
+    color: var(--text-dark);
+    font-size: 1rem;
+  }
+  .account-menu-emoji { font-size: 1.4rem; }
+  .account-logout {
+    margin-top: 1rem;
+    background: var(--beige-dark);
+    padding: 1.05rem 1rem;
+    display: flex;
+    justify-content: center;
+  }
+  .account-logout button {
+    border: none;
+    background: transparent;
+    color: var(--text-dark);
+    font-size: 1rem;
+    cursor: pointer;
+  }
+
   @media (max-width: 900px) {
     .products-grid { grid-template-columns: repeat(2, 1fr); }
   }
@@ -521,7 +491,6 @@
 </style>
 </head>
 <body>
-
 <div class="menu-overlay" id="menuOverlay">
   <button class="menu-close" onclick="closeMenu()">Fermer ✕</button>
   <nav class="menu-links">
@@ -541,9 +510,7 @@
       <span></span><span></span><span></span>
     </div>
   </div>
-
   <div class="header-center"><a href="#home">Studio of Beauty</a></div>
-
   <div class="header-right">
     <div class="header-icon" id="accountIcon" onclick="goToAccount()" title="Compte">
       <svg id="accountSvg" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.58-7 8-7s8 3 8 7"/></svg>
@@ -557,12 +524,9 @@
 </header>
 
 <main>
-  <!-- HOME -->
   <section id="page-home" class="page-view active">
     <section class="hero">
-      <div class="hero-placeholder">
-        <div class="hero-figure-inner"></div>
-      </div>
+      <div class="hero-placeholder"><div class="hero-figure-inner"></div></div>
       <div class="hero-label">
         <h1 class="hero-title">Studio of Beauty</h1>
         <p class="hero-sub">Carnets digitaux · Beauté & Précision</p>
@@ -576,132 +540,37 @@
           <div class="product-img-wrap">
             <span class="product-badge badge-brow">Brow</span>
             <span class="color-dot dot-beige"></span>
-            <div class="product-img-main">
-              <div class="prod-book-wrap">
-                <div class="prod-book book-brow-beige">
-                  <div class="prod-book-spine"></div>
-                  <div class="prod-book-text">L'Essentiel<br>Brow</div>
-                  <div class="prod-book-line"></div>
-                </div>
-              </div>
-            </div>
-            <div class="product-img-hover">
-              <div class="prod-open-wrap">
-                <div class="prod-page page-brow-beige">
-                  <div class="prod-page-title">Techniques</div>
-                  <div class="prod-page-line"></div><div class="prod-page-line"></div>
-                  <div class="prod-page-line"></div><div class="prod-page-line"></div>
-                </div>
-                <div class="prod-page page-brow-beige">
-                  <div class="prod-page-title">Suivi</div>
-                  <div class="prod-page-line"></div><div class="prod-page-line"></div>
-                </div>
-              </div>
-            </div>
+            <div class="product-img-main"><div class="prod-book-wrap"><div class="prod-book book-brow-beige"><div class="prod-book-spine"></div><div class="prod-book-text">L'Essentiel<br>Brow</div><div class="prod-book-line"></div></div></div></div>
+            <div class="product-img-hover"><div class="prod-open-wrap"><div class="prod-page page-brow-beige"><div class="prod-page-title">Techniques</div><div class="prod-page-line"></div><div class="prod-page-line"></div><div class="prod-page-line"></div><div class="prod-page-line"></div></div><div class="prod-page page-brow-beige"><div class="prod-page-title">Suivi</div><div class="prod-page-line"></div><div class="prod-page-line"></div></div></div></div>
           </div>
-          <div class="product-info">
-            <div class="product-name">L'Essentiel Brow<span>Version Beige</span></div>
-            <div class="product-price">8,95 €</div>
-          </div>
+          <div class="product-info"><div class="product-name">L'Essentiel Brow<span>Version Beige</span></div><div class="product-price">8,95 €</div></div>
         </div>
-
         <div class="product-card card-brow-gray">
           <div class="product-img-wrap">
             <span class="product-badge badge-brow">Brow</span>
             <span class="color-dot dot-gray"></span>
-            <div class="product-img-main">
-              <div class="prod-book-wrap">
-                <div class="prod-book book-brow-gray">
-                  <div class="prod-book-spine"></div>
-                  <div class="prod-book-text">L'Essentiel<br>Brow</div>
-                  <div class="prod-book-line"></div>
-                </div>
-              </div>
-            </div>
-            <div class="product-img-hover">
-              <div class="prod-open-wrap">
-                <div class="prod-page page-brow-gray">
-                  <div class="prod-page-title">Techniques</div>
-                  <div class="prod-page-line"></div><div class="prod-page-line"></div>
-                  <div class="prod-page-line"></div><div class="prod-page-line"></div>
-                </div>
-                <div class="prod-page page-brow-gray">
-                  <div class="prod-page-title">Suivi</div>
-                  <div class="prod-page-line"></div><div class="prod-page-line"></div>
-                </div>
-              </div>
-            </div>
+            <div class="product-img-main"><div class="prod-book-wrap"><div class="prod-book book-brow-gray"><div class="prod-book-spine"></div><div class="prod-book-text">L'Essentiel<br>Brow</div><div class="prod-book-line"></div></div></div></div>
+            <div class="product-img-hover"><div class="prod-open-wrap"><div class="prod-page page-brow-gray"><div class="prod-page-title">Techniques</div><div class="prod-page-line"></div><div class="prod-page-line"></div><div class="prod-page-line"></div><div class="prod-page-line"></div></div><div class="prod-page page-brow-gray"><div class="prod-page-title">Suivi</div><div class="prod-page-line"></div><div class="prod-page-line"></div></div></div></div>
           </div>
-          <div class="product-info">
-            <div class="product-name">L'Essentiel Brow<span>Version Gris</span></div>
-            <div class="product-price">8,95 €</div>
-          </div>
+          <div class="product-info"><div class="product-name">L'Essentiel Brow<span>Version Gris</span></div><div class="product-price">8,95 €</div></div>
         </div>
-
         <div class="product-card card-lash-beige">
           <div class="product-img-wrap">
             <span class="product-badge badge-lash">Lash</span>
             <span class="color-dot dot-beige"></span>
-            <div class="product-img-main">
-              <div class="prod-book-wrap">
-                <div class="prod-book book-lash-beige">
-                  <div class="prod-book-spine"></div>
-                  <div class="prod-book-text">L'Essentiel<br>Lash</div>
-                  <div class="prod-book-line"></div>
-                </div>
-              </div>
-            </div>
-            <div class="product-img-hover">
-              <div class="prod-open-wrap">
-                <div class="prod-page page-lash-beige">
-                  <div class="prod-page-title">Extensions</div>
-                  <div class="prod-page-line"></div><div class="prod-page-line"></div>
-                  <div class="prod-page-line"></div><div class="prod-page-line"></div>
-                </div>
-                <div class="prod-page page-lash-beige">
-                  <div class="prod-page-title">Suivi</div>
-                  <div class="prod-page-line"></div><div class="prod-page-line"></div>
-                </div>
-              </div>
-            </div>
+            <div class="product-img-main"><div class="prod-book-wrap"><div class="prod-book book-lash-beige"><div class="prod-book-spine"></div><div class="prod-book-text">L'Essentiel<br>Lash</div><div class="prod-book-line"></div></div></div></div>
+            <div class="product-img-hover"><div class="prod-open-wrap"><div class="prod-page page-lash-beige"><div class="prod-page-title">Extensions</div><div class="prod-page-line"></div><div class="prod-page-line"></div><div class="prod-page-line"></div><div class="prod-page-line"></div></div><div class="prod-page page-lash-beige"><div class="prod-page-title">Suivi</div><div class="prod-page-line"></div><div class="prod-page-line"></div></div></div></div>
           </div>
-          <div class="product-info">
-            <div class="product-name">L'Essentiel Lash<span>Version Beige</span></div>
-            <div class="product-price">8,95 €</div>
-          </div>
+          <div class="product-info"><div class="product-name">L'Essentiel Lash<span>Version Beige</span></div><div class="product-price">8,95 €</div></div>
         </div>
-
         <div class="product-card card-lash-gray">
           <div class="product-img-wrap">
             <span class="product-badge badge-lash">Lash</span>
             <span class="color-dot dot-gray"></span>
-            <div class="product-img-main">
-              <div class="prod-book-wrap">
-                <div class="prod-book book-lash-gray">
-                  <div class="prod-book-spine"></div>
-                  <div class="prod-book-text">L'Essentiel<br>Lash</div>
-                  <div class="prod-book-line"></div>
-                </div>
-              </div>
-            </div>
-            <div class="product-img-hover">
-              <div class="prod-open-wrap">
-                <div class="prod-page page-lash-gray">
-                  <div class="prod-page-title">Extensions</div>
-                  <div class="prod-page-line"></div><div class="prod-page-line"></div>
-                  <div class="prod-page-line"></div><div class="prod-page-line"></div>
-                </div>
-                <div class="prod-page page-lash-gray">
-                  <div class="prod-page-title">Suivi</div>
-                  <div class="prod-page-line"></div><div class="prod-page-line"></div>
-                </div>
-              </div>
-            </div>
+            <div class="product-img-main"><div class="prod-book-wrap"><div class="prod-book book-lash-gray"><div class="prod-book-spine"></div><div class="prod-book-text">L'Essentiel<br>Lash</div><div class="prod-book-line"></div></div></div></div>
+            <div class="product-img-hover"><div class="prod-open-wrap"><div class="prod-page page-lash-gray"><div class="prod-page-title">Extensions</div><div class="prod-page-line"></div><div class="prod-page-line"></div><div class="prod-page-line"></div><div class="prod-page-line"></div></div><div class="prod-page page-lash-gray"><div class="prod-page-title">Suivi</div><div class="prod-page-line"></div><div class="prod-page-line"></div></div></div></div>
           </div>
-          <div class="product-info">
-            <div class="product-name">L'Essentiel Lash<span>Version Gris</span></div>
-            <div class="product-price">8,95 €</div>
-          </div>
+          <div class="product-info"><div class="product-name">L'Essentiel Lash<span>Version Gris</span></div><div class="product-price">8,95 €</div></div>
         </div>
       </div>
     </section>
@@ -710,9 +579,7 @@
       <div class="desc-block">
         <p class="desc-eyebrow">La méthode Studio of Beauty</p>
         <h2 class="desc-title">Des carnets pensés pour sublimer votre regard, au quotidien.</h2>
-        <p class="desc-body">
-          L'Essentiel Brow et L'Essentiel Lash sont des carnets digitaux conçus pour accompagner les professionnelles et les passionnées de beauté dans leur routine regard. Chaque carnet centralise tout ce dont vous avez besoin : techniques, suivis, inspirations et conseils personnalisés.
-        </p>
+        <p class="desc-body">L'Essentiel Brow et L'Essentiel Lash sont des carnets digitaux conçus pour accompagner les professionnelles et les passionnées de beauté dans leur routine regard. Chaque carnet centralise tout ce dont vous avez besoin : techniques, suivis, inspirations et conseils personnalisés.</p>
         <ul class="desc-list">
           <li>Organisez vos soins sourcils et cils en un seul endroit</li>
           <li>Suivez vos progrès et vos techniques pas à pas</li>
@@ -726,9 +593,7 @@
     <section class="video-section">
       <p class="video-label">Tutoriels & Méthodes</p>
       <div class="video-placeholder">
-        <div class="play-btn">
-          <svg viewBox="0 0 16 16"><polygon points="3,1 15,8 3,15"/></svg>
-        </div>
+        <div class="play-btn"><svg viewBox="0 0 16 16"><polygon points="3,1 15,8 3,15"/></svg></div>
         <p class="video-caption">Comment utiliser votre carnet digital</p>
       </div>
     </section>
@@ -754,14 +619,12 @@
     </footer>
   </section>
 
-  <!-- SIGNUP -->
   <section id="page-signup" class="page-view">
     <div class="auth-shell">
       <div class="auth-card">
         <p class="auth-eyebrow">Créer un compte</p>
         <h1 class="auth-title">Rejoignez l'univers Studio of Beauty</h1>
         <p class="auth-text">Créez votre espace personnel pour retrouver vos informations et préparer l'accès à vos contenus.</p>
-
         <form class="auth-form" id="signupForm">
           <div class="auth-grid">
             <div class="field">
@@ -773,80 +636,69 @@
               <input id="signupLastName" type="text" required>
             </div>
           </div>
-
           <div class="field">
             <label for="signupEmail">Adresse e-mail</label>
             <input id="signupEmail" type="email" required>
           </div>
-
           <div class="field password-field">
             <label for="signupPassword">Mot de passe</label>
             <input id="signupPassword" type="password" minlength="6" required>
             <button class="password-toggle" type="button" onclick="togglePassword('signupPassword', this)">👁</button>
           </div>
-
           <button class="auth-btn" type="submit">Créer mon compte</button>
           <div class="auth-message" id="signupMessage"></div>
         </form>
-
         <p class="auth-switch">Vous avez déjà un compte ? <a href="#login">Se connecter</a></p>
         <a class="home-link" href="#home">Retour à l'accueil</a>
       </div>
     </div>
   </section>
 
-  <!-- LOGIN -->
   <section id="page-login" class="page-view">
     <div class="auth-shell">
       <div class="auth-card">
         <p class="auth-eyebrow">Connexion</p>
         <h1 class="auth-title">Connectez-vous à votre compte</h1>
         <p class="auth-text">Entrez votre adresse e-mail et votre mot de passe pour accéder à votre espace.</p>
-
         <form class="auth-form" id="loginForm">
           <div class="field">
             <label for="loginEmail">Adresse e-mail</label>
             <input id="loginEmail" type="email" required>
           </div>
-
           <div class="field password-field">
             <label for="loginPassword">Mot de passe</label>
             <input id="loginPassword" type="password" required>
             <button class="password-toggle" type="button" onclick="togglePassword('loginPassword', this)">👁</button>
           </div>
-
-          <button class="auth-btn" type="submit" id="loginSubmitBtn">Se connecter</button>
+          <button class="auth-btn" id="loginSubmitBtn" type="submit">Se connecter</button>
           <div class="auth-message" id="loginMessage"></div>
         </form>
-
         <div class="account-panel" id="accountPanel">
           <div class="account-name" id="accountName"></div>
           <div class="account-meta" id="accountEmail"></div>
-          <button class="auth-btn secondary" type="button" onclick="location.hash = '#account'">Ouvrir mon compte</button>
+          <button class="auth-btn secondary" type="button" onclick="location.hash='#account'">Ouvrir mon compte</button>
         </div>
-
         <p class="auth-switch" id="loginSwitchText">Pas encore de compte ? <a href="#signup">Créer un compte</a></p>
         <a class="home-link" href="#home">Retour à l'accueil</a>
       </div>
     </div>
   </section>
+
   <section id="page-account" class="page-view">
     <div class="account-sheet">
       <div class="account-card">
         <div class="account-card-top">
-          <button class="account-close" type="button" onclick="location.hash = '#home'">×</button>
+          <button class="account-close" type="button" onclick="location.hash='#home'">×</button>
           <div class="account-user-icon">◯</div>
           <div class="account-fullname" id="accountFullName">Mon compte</div>
           <button class="account-main-btn" type="button">Mon compte</button>
         </div>
-
         <div class="account-menu">
           <a href="#" class="account-menu-item">
             <span class="account-menu-emoji">📓</span>
             <span>Mes commandes</span>
           </a>
         </div>
-
         <div class="account-logout">
           <button type="button" onclick="logout()">↪ Me déconnecter</button>
         </div>
@@ -891,6 +743,7 @@
 
   function showMessage(elementId, text, type) {
     const el = document.getElementById(elementId);
+    if (!el) return;
     el.textContent = text;
     el.className = `auth-message ${type}`;
   }
@@ -945,8 +798,14 @@
     const hash = window.location.hash || '#home';
     const route = ['#home', '#signup', '#login', '#account'].includes(hash) ? hash : '#home';
 
+    if (route === '#account' && !getCurrentUser()) {
+      location.hash = '#signup';
+      return;
+    }
+
     document.querySelectorAll('.page-view').forEach(section => section.classList.remove('active'));
-    document.getElementById(`page-${route.replace('#', '')}`).classList.add('active');
+    const page = document.getElementById(`page-${route.replace('#', '')}`);
+    if (page) page.classList.add('active');
     closeMenu();
     window.scrollTo({ top: 0, behavior: 'smooth' });
     updateAccountPanel();
@@ -965,6 +824,13 @@
     updateHeaderAccount();
     showMessage('loginMessage', 'Vous êtes déconnecté.', 'success');
     location.hash = '#home';
+  }
+
+  function togglePassword(inputId, button) {
+    const input = document.getElementById(inputId);
+    const hidden = input.type === 'password';
+    input.type = hidden ? 'text' : 'password';
+    button.textContent = hidden ? '🙈' : '👁';
   }
 
   document.getElementById('newsletterForm').addEventListener('submit', function(e) {
@@ -1005,7 +871,7 @@
     saveUsers(users);
     saveCurrentUser(newUser);
     updateHeaderAccount();
-    showMessage('signupMessage', 'Compte créé avec succès. Vous êtes maintenant connecté.', 'success');
+    showMessage('signupMessage', 'Compte créé avec succès.', 'success');
     this.reset();
 
     setTimeout(() => {
@@ -1018,7 +884,6 @@
 
     const email = document.getElementById('loginEmail').value.trim().toLowerCase();
     const password = document.getElementById('loginPassword').value;
-
     const users = getUsers();
     const user = users.find(item => item.email === email && item.password === password);
 
@@ -1031,21 +896,18 @@
     updateHeaderAccount();
     showMessage('loginMessage', `Bienvenue ${user.firstName}.`, 'success');
     this.reset();
+    setTimeout(() => {
+      location.hash = '#account';
+    }, 600);
   });
-
-  function togglePassword(inputId, button) {
-    const input = document.getElementById(inputId);
-    const isPassword = input.type === 'password';
-    input.type = isPassword ? 'text' : 'password';
-    button.textContent = isPassword ? '🙈' : '👁';
-  }
 
   window.addEventListener('hashchange', showPageFromHash);
 
   window.addEventListener('DOMContentLoaded', () => {
     const prefillEmail = localStorage.getItem('sob_prefill_email');
     if (prefillEmail) {
-      document.getElementById('signupEmail').value = prefillEmail;
+      const signupEmail = document.getElementById('signupEmail');
+      if (signupEmail) signupEmail.value = prefillEmail;
       localStorage.removeItem('sob_prefill_email');
     }
     updateHeaderAccount();
