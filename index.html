@@ -366,6 +366,65 @@
     color: var(--text-dark);
     border: 0.5px solid var(--beige-dark);
   }
+  .password-field {
+    position: relative;
+  }
+  .password-field input {
+    padding-right: 3.4rem;
+  }
+  .password-toggle {
+    position: absolute;
+    right: 0.85rem;
+    top: 50%;
+    transform: translateY(-50%);
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    color: var(--text-mid);
+    font-size: 1rem;
+    line-height: 1;
+  }
+  .account-sheet {
+    min-height: calc(100vh - var(--header-h));
+    background: linear-gradient(180deg, var(--gray-light) 0%, var(--white) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 1rem;
+  }
+  .account-card {
+    width: 100%;
+    max-width: 430px;
+    background: #efefef;
+    border: 0.5px solid var(--gray-mid);
+    box-shadow: 0 18px 60px rgba(0,0,0,0.06);
+    overflow: hidden;
+  }
+  .account-card-top {
+    position: relative;
+    padding: 1.2rem 1rem 0.8rem;
+    text-align: center;
+    background: #f7f7f7;
+  }
+  .account-close {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.9rem;
+    border: none;
+    background: transparent;
+    font-size: 2rem;
+    line-height: 1;
+    color: var(--text-dark);
+    cursor: pointer;
+  }
+  .account-user-icon {
+    font-size: 4rem;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+  .account-fullname {
+    font-size: 1.8rem;
+    font-f
   .auth-switch {
     margin-top: 1.2rem;
     font-size: 0.82rem;
@@ -874,8 +933,7 @@
     this.reset();
 
     setTimeout(() => {
-      location.hash = '#login';
-      showMessage('loginMessage', 'Connexion active.', 'success');
+      location.hash = '#home';
     }, 900);
   });
 
