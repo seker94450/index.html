@@ -424,7 +424,49 @@
   }
   .account-fullname {
     font-size: 1.8rem;
-    font-f
+    font-family: 'Cormorant Garamond', serif;
+    margin-bottom: 1rem;
+  }
+  .account-main-btn {
+    width: 100%;
+    border: 0.5px solid var(--gray-dark);
+    background: transparent;
+    color: var(--text-dark);
+    padding: 0.9rem 1rem;
+    font-size: 1rem;
+    cursor: default;
+  }
+  .account-menu {
+    padding: 1.2rem 1rem 0;
+    background: #f3f3f3;
+  }
+  .account-menu-item {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    padding: 1rem 0.35rem;
+    text-decoration: none;
+    color: var(--text-dark);
+    font-size: 1rem;
+  }
+  .account-menu-emoji {
+    font-size: 1.4rem;
+  }
+  .account-logout {
+    margin-top: 1rem;
+    background: var(--beige-dark);
+    padding: 1.1rem 1rem;
+    display: flex;
+    justify-content: center;
+  }
+  .account-logout button {
+    border: none;
+    background: transparent;
+    color: var(--text-dark);
+    font-size: 1rem;
+    font-weight: 400;
+    cursor: pointer;
+  }
   .auth-switch {
     margin-top: 1.2rem;
     font-size: 0.82rem;
@@ -737,9 +779,10 @@
             <input id="signupEmail" type="email" required>
           </div>
 
-          <div class="field">
+          <div class="field password-field">
             <label for="signupPassword">Mot de passe</label>
             <input id="signupPassword" type="password" minlength="6" required>
+            <button class="password-toggle" type="button" onclick="togglePassword('signupPassword', this)">👁</button>
           </div>
 
           <button class="auth-btn" type="submit">Créer mon compte</button>
@@ -766,23 +809,47 @@
             <input id="loginEmail" type="email" required>
           </div>
 
-          <div class="field">
+          <div class="field password-field">
             <label for="loginPassword">Mot de passe</label>
             <input id="loginPassword" type="password" required>
+            <button class="password-toggle" type="button" onclick="togglePassword('loginPassword', this)">👁</button>
           </div>
 
-          <button class="auth-btn" type="submit">Se connecter</button>
+          <button class="auth-btn" type="submit" id="loginSubmitBtn">Se connecter</button>
           <div class="auth-message" id="loginMessage"></div>
         </form>
 
         <div class="account-panel" id="accountPanel">
           <div class="account-name" id="accountName"></div>
           <div class="account-meta" id="accountEmail"></div>
-          <button class="auth-btn secondary" type="button" onclick="logout()">Se déconnecter</button>
+          <button class="auth-btn secondary" type="button" onclick="location.hash = '#account'">Ouvrir mon compte</button>
         </div>
 
-        <p class="auth-switch">Pas encore de compte ? <a href="#signup">Créer un compte</a></p>
+        <p class="auth-switch" id="loginSwitchText">Pas encore de compte ? <a href="#signup">Créer un compte</a></p>
         <a class="home-link" href="#home">Retour à l'accueil</a>
+      </div>
+    </div>
+  </section>
+  <section id="page-account" class="page-view">
+    <div class="account-sheet">
+      <div class="account-card">
+        <div class="account-card-top">
+          <button class="account-close" type="button" onclick="location.hash = '#home'">×</button>
+          <div class="account-user-icon">◯</div>
+          <div class="account-fullname" id="accountFullName">Mon compte</div>
+          <button class="account-main-btn" type="button">Mon compte</button>
+        </div>
+
+        <div class="account-menu">
+          <a href="#" class="account-menu-item">
+            <span class="account-menu-emoji">📓</span>
+            <span>Mes commandes</span>
+          </a>
+        </div>
+
+        <div class="account-logout">
+          <button type="button" onclick="logout()">↪ Me déconnecter</button>
+        </div>
       </div>
     </div>
   </section>
@@ -851,6 +918,9 @@
     const panel = document.getElementById('accountPanel');
     const name = document.getElementById('accountName');
     const email = document.getElementById('accountEmail');
+    const fullName = document.getElementById('accountFullName');
+    const loginSubmitBtn = document.getElementById('loginSubmitBtn');
+    const loginSwitchText = document.getElementById('loginSwitchText');
 
     if (!panel) return;
 
@@ -858,16 +928,22 @@
       panel.classList.add('visible');
       name.textContent = `${currentUser.firstName} ${currentUser.lastName}`;
       email.textContent = currentUser.email;
+      if (fullName) fullName.textContent = `${currentUser.firstName} ${currentUser.lastName}`;
+      if (loginSubmitBtn) loginSubmitBtn.style.display = 'none';
+      if (loginSwitchText) loginSwitchText.style.display = 'none';
     } else {
       panel.classList.remove('visible');
       name.textContent = '';
       email.textContent = '';
+      if (fullName) fullName.textContent = 'Mon compte';
+      if (loginSubmitBtn) loginSubmitBtn.style.display = 'block';
+      if (loginSwitchText) loginSwitchText.style.display = 'block';
     }
   }
 
   function showPageFromHash() {
     const hash = window.location.hash || '#home';
-    const route = ['#home', '#signup', '#login'].includes(hash) ? hash : '#home';
+    const route = ['#home', '#signup', '#login', '#account'].includes(hash) ? hash : '#home';
 
     document.querySelectorAll('.page-view').forEach(section => section.classList.remove('active'));
     document.getElementById(`page-${route.replace('#', '')}`).classList.add('active');
@@ -878,7 +954,7 @@
 
   function goToAccount() {
     if (getCurrentUser()) {
-      location.hash = '#login';
+      location.hash = '#account';
     } else {
       location.hash = '#signup';
     }
@@ -956,6 +1032,13 @@
     showMessage('loginMessage', `Bienvenue ${user.firstName}.`, 'success');
     this.reset();
   });
+
+  function togglePassword(inputId, button) {
+    const input = document.getElementById(inputId);
+    const isPassword = input.type === 'password';
+    input.type = isPassword ? 'text' : 'password';
+    button.textContent = isPassword ? '🙈' : '👁';
+  }
 
   window.addEventListener('hashchange', showPageFromHash);
 
