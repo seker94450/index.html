@@ -32,7 +32,7 @@
   }
   a { color: inherit; }
   button, input { font: inherit; }
-  img { display: block; max-width: 100%; }
+  img, video { display: block; max-width: 100%; }
 
   header {
     position: fixed; top: 0; left: 0; right: 0; z-index: 100;
@@ -236,9 +236,16 @@
 
   .video-section { padding: 2.5rem 2rem 4rem; background: var(--gray-light); display: flex; flex-direction: column; align-items: center; gap: 1rem; }
   .video-label { font-family: 'Jost', sans-serif; font-weight: 200; font-size: 0.65rem; letter-spacing: 0.5em; text-transform: uppercase; color: var(--gray-dark); }
-  .video-placeholder {
+  .video-frame {
     width: 100%; max-width: 780px; aspect-ratio: 16/9;
     background: var(--beige-mid); border: 0.5px solid var(--beige-dark);
+    overflow: hidden;
+    position: relative;
+  }
+  .video-placeholder, .video-embed {
+    width: 100%; height: 100%;
+  }
+  .video-placeholder {
     display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1rem;
     cursor: pointer; transition: background 0.3s;
   }
@@ -248,6 +255,9 @@
   .video-placeholder:hover .play-btn { background: var(--text-dark); }
   .video-placeholder:hover .play-btn svg { fill: var(--white); }
   .video-caption { font-family: 'Jost', sans-serif; font-weight: 200; font-size: 0.72rem; letter-spacing: 0.2em; color: var(--text-mid); text-transform: uppercase; }
+  .video-embed { display: none; }
+  .video-embed.active { display: block; }
+  .video-embed video { width: 100%; height: 100%; object-fit: cover; }
 
   .newsletter-section { padding: 5rem 2rem; background: var(--text-dark); display: flex; flex-direction: column; align-items: center; gap: 0.6rem; text-align: center; }
   .newsletter-brand { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: 1.1rem; letter-spacing: 0.35em; color: var(--beige-mid); text-transform: uppercase; margin-bottom: 0.8rem; }
@@ -439,25 +449,17 @@
     position: absolute;
     inset: 0;
     opacity: 0;
-    transition: opacity 0.45s ease;
+    transform: translateY(18px);
+    transition: opacity 0.45s ease, transform 0.45s ease;
   }
   .shop-slide img {
     width: 100%;
     height: 100%;
     object-fit: cover;
   }
-  .shop-card:hover .shop-slide-1,
-  .shop-card .shop-slide-1 { opacity: 1; }
-  .shop-card:hover .shop-slide-2 { opacity: 1; animation: fadeShow 4s infinite; }
-  .shop-card:hover .shop-slide-3 { opacity: 0; animation: fadeLate 4s infinite; }
-  @keyframes fadeShow {
-    0%, 33% { opacity: 0; }
-    40%, 70% { opacity: 1; }
-    100% { opacity: 0; }
-  }
-  @keyframes fadeLate {
-    0%, 66% { opacity: 0; }
-    73%, 100% { opacity: 1; }
+  .shop-card .shop-slide.is-visible {
+    opacity: 1;
+    transform: translateY(0);
   }
   .shop-card-body { padding: 1.35rem 1.2rem 1.4rem; }
   .shop-card-title {
@@ -474,34 +476,100 @@
 
   .product-grid {
     display: grid;
-    grid-template-columns: 1.1fr 0.9fr;
+    grid-template-columns: 0.9fr 1.1fr;
     gap: 3rem;
     align-items: start;
+  }
+  .product-gallery-shell {
+    position: sticky;
+    top: calc(var(--header-h) + 24px);
   }
   .product-gallery {
     background: rgba(245,240,232,0.85);
     border: 0.5px solid var(--beige-dark);
     padding: 1rem;
+    overflow: hidden;
   }
-  .product-main-photo {
-    width: 100%;
+  .product-slider {
+    position: relative;
     aspect-ratio: 4/5;
-    object-fit: cover;
+    overflow: hidden;
     background: var(--gray-light);
   }
+  .product-slide {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transform: translateY(65px);
+    transition: opacity 0.55s ease, transform 0.55s ease;
+  }
+  .product-slide.active {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .product-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .product-slider-controls {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+    z-index: 2;
+  }
+  .product-arrow {
+    width: 38px;
+    height: 38px;
+    border-radius: 999px;
+    border: 0.5px solid rgba(42,40,38,0.25);
+    background: rgba(250,250,248,0.78);
+    backdrop-filter: blur(6px);
+    color: var(--text-dark);
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+    font-size: 1rem;
+  }
+  .product-dots {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    gap: 0.45rem;
+    flex-wrap: wrap;
+  }
+  .product-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(138,134,128,0.35);
+    cursor: pointer;
+  }
+  .product-dot.active { background: var(--text-dark); }
   .product-thumbs {
     margin-top: 1rem;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 0.8rem;
   }
-  .product-thumbs img {
+  .product-thumb {
+    border: 0.5px solid var(--gray-mid);
+    background: transparent;
+    padding: 0;
+    cursor: pointer;
+  }
+  .product-thumb img {
     width: 100%;
     aspect-ratio: 1/1;
     object-fit: cover;
     background: var(--gray-light);
-    border: 0.5px solid var(--gray-mid);
   }
+  .product-thumb.active { outline: 1px solid var(--text-dark); }
   .product-info-box {
     background: rgba(250,250,248,0.92);
     border: 0.5px solid var(--gray-mid);
@@ -803,6 +871,7 @@
     .products-grid { grid-template-columns: repeat(2, 1fr); }
     .shop-grid { grid-template-columns: 1fr; }
     .product-grid { grid-template-columns: 1fr; }
+    .product-gallery-shell { position: static; }
   }
   @media (max-width: 900px) {
     :root { --faq-width: min(46vw, 420px); }
@@ -829,6 +898,7 @@
       text-align: center;
     }
     .shop-card-media { height: 380px; }
+    .product-info-box { padding: 1.4rem; }
   }
 </style>
 </head>
@@ -927,7 +997,7 @@
                 </div>
               </div>
             </div>
-            <div class="product-img-hover"><img class="product-photo" src="brow-beige.jpg" alt="L'Essentiel Brow beige"></div>
+            <div class="product-img-hover"><img class="product-photo" src="img1.jpg" alt="L'Essentiel Brow beige"></div>
           </div>
           <div class="product-info"><div class="product-name">L'Essentiel Brow<span>Version Beige</span></div><div class="product-price">8,95 €</div></div>
         </a>
@@ -945,7 +1015,7 @@
                 </div>
               </div>
             </div>
-            <div class="product-img-hover"><img class="product-photo" src="brow-gray.jpg" alt="L'Essentiel Brow gris"></div>
+            <div class="product-img-hover"><img class="product-photo" src="img2.jpg" alt="L'Essentiel Brow gris"></div>
           </div>
           <div class="product-info"><div class="product-name">L'Essentiel Brow<span>Version Gris</span></div><div class="product-price">8,95 €</div></div>
         </a>
@@ -963,7 +1033,7 @@
                 </div>
               </div>
             </div>
-            <div class="product-img-hover"><img class="product-photo" src="lash-beige.jpg" alt="L'Essentiel Lash beige"></div>
+            <div class="product-img-hover"><img class="product-photo" src="img1.jpg" alt="L'Essentiel Lash beige"></div>
           </div>
           <div class="product-info"><div class="product-name">L'Essentiel Lash<span>Version Beige</span></div><div class="product-price">8,95 €</div></div>
         </a>
@@ -981,7 +1051,7 @@
                 </div>
               </div>
             </div>
-            <div class="product-img-hover"><img class="product-photo" src="lash-gray.jpg" alt="L'Essentiel Lash gris"></div>
+            <div class="product-img-hover"><img class="product-photo" src="img2.jpg" alt="L'Essentiel Lash gris"></div>
           </div>
           <div class="product-info"><div class="product-name">L'Essentiel Lash<span>Version Gris</span></div><div class="product-price">8,95 €</div></div>
         </a>
@@ -1005,9 +1075,16 @@
 
     <section class="video-section">
       <p class="video-label">Tutoriels & Méthodes</p>
-      <div class="video-placeholder">
-        <div class="play-btn"><svg viewBox="0 0 16 16"><polygon points="3,1 15,8 3,15"/></svg></div>
-        <p class="video-caption">Comment utiliser votre carnet digital</p>
+      <div class="video-frame">
+        <div class="video-placeholder" id="tutorialPlaceholder" onclick="playTutorialVideo()">
+          <div class="play-btn"><svg viewBox="0 0 16 16"><polygon points="3,1 15,8 3,15"/></svg></div>
+          <p class="video-caption">Comment utiliser votre carnet digital</p>
+        </div>
+        <div class="video-embed" id="tutorialVideoWrap">
+          <video id="tutorialVideo" controls playsinline preload="metadata">
+            <source src="tutorial-video.mp4" type="video/mp4">
+          </video>
+        </div>
       </div>
     </section>
 
@@ -1039,17 +1116,13 @@
       <div class="shop-wrap">
         <div class="shop-eyebrow">Boutique</div>
         <h1 class="shop-title">Tous les carnets</h1>
-        <p class="shop-intro">Retrouvez les quatre versions de L'Essentiel Brow et L'Essentiel Lash. Survolez chaque carnet pour voir défiler plusieurs visuels, puis cliquez pour ouvrir la fiche produit complète.</p>
+        <p class="shop-intro">Retrouvez les quatre versions de L'Essentiel Brow et L'Essentiel Lash. Survolez chaque carnet pour voir défiler ses visuels de haut en bas, puis cliquez pour ouvrir la fiche produit complète.</p>
 
         <div class="shop-category" id="shop-brow-anchor">
           <h2 class="shop-category-title">L'essentiel Brow</h2>
           <div class="shop-grid">
-            <a href="#product-brow-beige" class="shop-card">
-              <div class="shop-card-media">
-                <div class="shop-slide shop-slide-1"><img src="brow-beige.jpg" alt="L'Essentiel Brow beige"></div>
-                <div class="shop-slide shop-slide-2"><img src="brow-beige.jpg" alt="L'Essentiel Brow beige"></div>
-                <div class="shop-slide shop-slide-3"><img src="brow-beige.jpg" alt="L'Essentiel Brow beige"></div>
-              </div>
+            <a href="#product-brow-beige" class="shop-card" data-product="brow-beige">
+              <div class="shop-card-media"></div>
               <div class="shop-card-body">
                 <div class="shop-card-title">L'Essentiel Brow</div>
                 <div class="shop-card-sub">Version Beige</div>
@@ -1057,12 +1130,8 @@
               </div>
             </a>
 
-            <a href="#product-brow-gray" class="shop-card">
-              <div class="shop-card-media">
-                <div class="shop-slide shop-slide-1"><img src="brow-gray.jpg" alt="L'Essentiel Brow gris"></div>
-                <div class="shop-slide shop-slide-2"><img src="brow-gray.jpg" alt="L'Essentiel Brow gris"></div>
-                <div class="shop-slide shop-slide-3"><img src="brow-gray.jpg" alt="L'Essentiel Brow gris"></div>
-              </div>
+            <a href="#product-brow-gray" class="shop-card" data-product="brow-gray">
+              <div class="shop-card-media"></div>
               <div class="shop-card-body">
                 <div class="shop-card-title">L'Essentiel Brow</div>
                 <div class="shop-card-sub">Version Gris</div>
@@ -1075,12 +1144,8 @@
         <div class="shop-category" id="shop-lash-anchor">
           <h2 class="shop-category-title">L'essentiel Lash</h2>
           <div class="shop-grid">
-            <a href="#product-lash-beige" class="shop-card">
-              <div class="shop-card-media">
-                <div class="shop-slide shop-slide-1"><img src="lash-beige.jpg" alt="L'Essentiel Lash beige"></div>
-                <div class="shop-slide shop-slide-2"><img src="lash-beige.jpg" alt="L'Essentiel Lash beige"></div>
-                <div class="shop-slide shop-slide-3"><img src="lash-beige.jpg" alt="L'Essentiel Lash beige"></div>
-              </div>
+            <a href="#product-lash-beige" class="shop-card" data-product="lash-beige">
+              <div class="shop-card-media"></div>
               <div class="shop-card-body">
                 <div class="shop-card-title">L'Essentiel Lash</div>
                 <div class="shop-card-sub">Version Beige</div>
@@ -1088,12 +1153,8 @@
               </div>
             </a>
 
-            <a href="#product-lash-gray" class="shop-card">
-              <div class="shop-card-media">
-                <div class="shop-slide shop-slide-1"><img src="lash-gray.jpg" alt="L'Essentiel Lash gris"></div>
-                <div class="shop-slide shop-slide-2"><img src="lash-gray.jpg" alt="L'Essentiel Lash gris"></div>
-                <div class="shop-slide shop-slide-3"><img src="lash-gray.jpg" alt="L'Essentiel Lash gris"></div>
-              </div>
+            <a href="#product-lash-gray" class="shop-card" data-product="lash-gray">
+              <div class="shop-card-media"></div>
               <div class="shop-card-body">
                 <div class="shop-card-title">L'Essentiel Lash</div>
                 <div class="shop-card-sub">Version Gris</div>
@@ -1272,31 +1333,80 @@ Des instructions et tutoriels sont fournis après l’achat pour guider l’util
       title: "L'Essentiel Brow",
       color: 'Version Beige',
       price: '8,95 €',
-      image: 'brow-beige.jpg',
-      category: 'brow'
+      category: 'brow',
+      hover: 'img1.jpg',
+      images: ['img1.jpg', 'img3.jpg', 'img5.jpg', 'img9.jpg', 'img13.jpg', 'img15.jpg']
     },
     'brow-gray': {
       title: "L'Essentiel Brow",
       color: 'Version Gris',
       price: '8,95 €',
-      image: 'brow-gray.jpg',
-      category: 'brow'
+      category: 'brow',
+      hover: 'img2.jpg',
+      images: ['img2.jpg', 'img4.jpg', 'img8.jpg', 'img11.jpg', 'img14.jpg', 'img15.jpg']
     },
     'lash-beige': {
       title: "L'Essentiel Lash",
       color: 'Version Beige',
       price: '8,95 €',
-      image: 'lash-beige.jpg',
-      category: 'lash'
+      category: 'lash',
+      hover: 'img1.jpg',
+      images: ['img1.jpg', 'img3.jpg', 'img6.jpg', 'img10.jpg', 'img13.jpg', 'img15.jpg']
     },
     'lash-gray': {
       title: "L'Essentiel Lash",
       color: 'Version Gris',
       price: '8,95 €',
-      image: 'lash-gray.jpg',
-      category: 'lash'
+      category: 'lash',
+      hover: 'img2.jpg',
+      images: ['img2.jpg', 'img4.jpg', 'img7.jpg', 'img12.jpg', 'img14.jpg', 'img15.jpg']
     }
   };
+
+  let productSliderIntervals = {};
+  let shopSliderIntervals = [];
+
+  function buildShopCards() {
+    document.querySelectorAll('.shop-card').forEach(card => {
+      const productKey = card.dataset.product;
+      const product = PRODUCTS[productKey];
+      const media = card.querySelector('.shop-card-media');
+      if (!product || !media) return;
+      media.innerHTML = product.images.slice(0, 3).map((img, index) => `
+        <div class="shop-slide ${index === 0 ? 'is-visible' : ''}">
+          <img src="${img}" alt="${product.title} ${product.color}">
+        </div>
+      `).join('');
+
+      const slides = media.querySelectorAll('.shop-slide');
+      let current = 0;
+      let interval = null;
+
+      function show(index) {
+        slides.forEach((slide, i) => slide.classList.toggle('is-visible', i === index));
+        current = index;
+      }
+
+      function start() {
+        if (slides.length <= 1 || interval) return;
+        interval = setInterval(() => {
+          show((current + 1) % slides.length);
+        }, 1200);
+      }
+
+      function stop() {
+        if (!interval) return;
+        clearInterval(interval);
+        interval = null;
+        show(0);
+      }
+
+      card.addEventListener('mouseenter', start);
+      card.addEventListener('mouseleave', stop);
+      card.addEventListener('touchstart', start, { passive: true });
+      shopSliderIntervals.push(stop);
+    });
+  }
 
   function buildProductPages() {
     Object.entries(PRODUCTS).forEach(([slug, product]) => {
@@ -1307,12 +1417,31 @@ Des instructions et tutoriels sont fournis après l’achat pour guider l’util
           <div class="product-wrap">
             <div class="product-eyebrow">Fiche produit</div>
             <div class="product-grid">
-              <div class="product-gallery">
-                <img class="product-main-photo" src="${product.image}" alt="${product.title} ${product.color}">
-                <div class="product-thumbs">
-                  <img src="${product.image}" alt="${product.title}">
-                  <img src="${product.image}" alt="${product.title}">
-                  <img src="${product.image}" alt="${product.title}">
+              <div class="product-gallery-shell">
+                <div class="product-gallery">
+                  <div class="product-slider" id="slider-${slug}">
+                    ${product.images.map((img, index) => `
+                      <div class="product-slide ${index === 0 ? 'active' : ''}">
+                        <img src="${img}" alt="${product.title} ${product.color} ${index + 1}">
+                      </div>
+                    `).join('')}
+                    <div class="product-slider-controls">
+                      <button class="product-arrow" type="button" data-dir="prev" data-slider="${slug}">↑</button>
+                      <button class="product-arrow" type="button" data-dir="next" data-slider="${slug}">↓</button>
+                    </div>
+                  </div>
+                  <div class="product-dots" id="dots-${slug}">
+                    ${product.images.map((_, index) => `
+                      <button class="product-dot ${index === 0 ? 'active' : ''}" type="button" data-slider="${slug}" data-index="${index}"></button>
+                    `).join('')}
+                  </div>
+                  <div class="product-thumbs">
+                    ${product.images.slice(0, 6).map((img, index) => `
+                      <button class="product-thumb ${index === 0 ? 'active' : ''}" type="button" data-slider="${slug}" data-index="${index}">
+                        <img src="${img}" alt="Miniature ${index + 1}">
+                      </button>
+                    `).join('')}
+                  </div>
                 </div>
               </div>
               <div class="product-info-box">
@@ -1327,6 +1456,73 @@ Des instructions et tutoriels sont fournis après l’achat pour guider l’util
         </div>
       `;
     });
+  }
+
+  function initProductSliders() {
+    Object.keys(PRODUCTS).forEach(slug => {
+      const slider = document.getElementById(`slider-${slug}`);
+      if (!slider) return;
+      const slides = slider.querySelectorAll('.product-slide');
+      const dots = document.querySelectorAll(`.product-dot[data-slider="${slug}"]`);
+      const thumbs = document.querySelectorAll(`.product-thumb[data-slider="${slug}"]`);
+      let current = 0;
+      let touchStartY = 0;
+
+      function update(index) {
+        slides.forEach((slide, i) => slide.classList.toggle('active', i === index));
+        dots.forEach((dot, i) => dot.classList.toggle('active', i === index));
+        thumbs.forEach((thumb, i) => thumb.classList.toggle('active', i === index));
+        current = index;
+      }
+
+      function next() { update((current + 1) % slides.length); }
+      function prev() { update((current - 1 + slides.length) % slides.length); }
+
+      slider.querySelectorAll('.product-arrow').forEach(btn => {
+        btn.addEventListener('click', () => {
+          btn.dataset.dir === 'next' ? next() : prev();
+        });
+      });
+
+      dots.forEach(dot => {
+        dot.addEventListener('click', () => update(Number(dot.dataset.index)));
+      });
+      thumbs.forEach(thumb => {
+        thumb.addEventListener('click', () => update(Number(thumb.dataset.index)));
+      });
+
+      slider.addEventListener('wheel', e => {
+        e.preventDefault();
+        if (Math.abs(e.deltaY) < 8) return;
+        e.deltaY > 0 ? next() : prev();
+      }, { passive: false });
+
+      slider.addEventListener('touchstart', e => {
+        touchStartY = e.changedTouches[0].clientY;
+      }, { passive: true });
+      slider.addEventListener('touchend', e => {
+        const delta = touchStartY - e.changedTouches[0].clientY;
+        if (Math.abs(delta) < 30) return;
+        delta > 0 ? next() : prev();
+      }, { passive: true });
+
+      productSliderIntervals[slug] = setInterval(next, 2600);
+      slider.addEventListener('mouseenter', () => clearInterval(productSliderIntervals[slug]));
+      slider.addEventListener('mouseleave', () => {
+        clearInterval(productSliderIntervals[slug]);
+        productSliderIntervals[slug] = setInterval(next, 2600);
+      });
+    });
+  }
+
+  function playTutorialVideo() {
+    const wrap = document.getElementById('tutorialVideoWrap');
+    const placeholder = document.getElementById('tutorialPlaceholder');
+    const video = document.getElementById('tutorialVideo');
+    if (!wrap || !placeholder || !video) return;
+    placeholder.style.display = 'none';
+    wrap.classList.add('active');
+    video.play().catch(() => {});
   }
 
   function openMenu() { document.getElementById('menuOverlay').classList.add('open'); }
@@ -1519,6 +1715,8 @@ Des instructions et tutoriels sont fournis après l’achat pour guider l’util
   window.addEventListener('hashchange', showPageFromHash);
   window.addEventListener('DOMContentLoaded', () => {
     buildProductPages();
+    buildShopCards();
+    initProductSliders();
     const prefillEmail = localStorage.getItem('sob_prefill_email');
     if (prefillEmail) {
       const signupEmail = document.getElementById('signupEmail');
