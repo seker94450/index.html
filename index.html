@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Studio of Beauty</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@200;300;400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
   :root {
@@ -20,15 +20,16 @@
     --header-h: 52px;
     --success: #41513f;
     --danger: #8b4b4b;
+    --faq-width: min(26vw, 420px);
   }
 
+  html { scroll-behavior: smooth; }
   body {
     font-family: 'Jost', sans-serif;
     background: var(--white);
     color: var(--text-dark);
     overflow-x: hidden;
   }
-
   a { color: inherit; }
   button, input { font: inherit; }
 
@@ -75,7 +76,7 @@
   .avatar-badge.visible { display: inline-flex; }
 
   .menu-overlay {
-    position: fixed; inset: 0; background: var(--beige); z-index: 200;
+    position: fixed; inset: 0; background: var(--beige); z-index: 220;
     transform: translateX(-100%); transition: transform 0.45s cubic-bezier(.77,0,.175,1);
     display: flex; flex-direction: column; padding: 2rem;
   }
@@ -263,13 +264,118 @@
   .newsletter-input::placeholder { color: rgba(255,255,255,0.3); }
   .newsletter-btn { padding: 0.8rem 1.4rem; background: transparent; border: 0.5px solid rgba(255,255,255,0.2); color: var(--white); font-family: 'Jost', sans-serif; font-weight: 200; font-size: 0.72rem; letter-spacing: 0.22em; text-transform: uppercase; cursor: pointer; transition: background 0.3s; }
   .newsletter-btn:hover { background: rgba(255,255,255,0.08); }
-  .social-row { display: flex; gap: 1.6rem; margin-top: 2rem; }
-  .social-link { font-family: 'Jost', sans-serif; font-weight: 200; font-size: 0.65rem; letter-spacing: 0.35em; text-transform: uppercase; color: rgba(255,255,255,0.4); text-decoration: none; transition: color 0.3s; }
-  .social-link:hover { color: var(--white); }
+  .social-row { display: flex; gap: 1.6rem; margin-top: 2rem; flex-wrap: wrap; justify-content: center; }
+  .social-link, .footer-link-btn {
+    font-family: 'Jost', sans-serif; font-weight: 200; font-size: 0.65rem; letter-spacing: 0.35em; text-transform: uppercase; color: rgba(255,255,255,0.4); text-decoration: none; transition: color 0.3s; background: none; border: none; cursor: pointer;
+  }
+  .social-link:hover, .footer-link-btn:hover { color: var(--white); }
 
-  footer { background: var(--text-dark); border-top: 0.5px solid rgba(255,255,255,0.06); padding: 1.5rem 2rem; display: flex; justify-content: center; gap: 3rem; }
-  footer a { font-family: 'Jost', sans-serif; font-weight: 200; font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase; color: rgba(255,255,255,0.25); text-decoration: none; transition: color 0.3s; }
-  footer a:hover { color: rgba(255,255,255,0.6); }
+  footer {
+    background: var(--text-dark);
+    border-top: 0.5px solid rgba(255,255,255,0.06);
+    padding: 1.5rem 2rem;
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    position: relative;
+    flex-wrap: wrap;
+  }
+  footer a, footer button {
+    font-family: 'Jost', sans-serif; font-weight: 200; font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase; color: rgba(255,255,255,0.25); text-decoration: none; transition: color 0.3s; background: none; border: none; cursor: pointer;
+  }
+  footer a:hover, footer button:hover { color: rgba(255,255,255,0.6); }
+
+  .contact-popover {
+    position: absolute;
+    bottom: 58px;
+    left: 50%;
+    transform: translateX(-50%) translateY(8px);
+    background: rgba(245,240,232,0.98);
+    color: var(--text-dark);
+    border: 0.5px solid var(--beige-dark);
+    padding: 0.9rem 1rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.06em;
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.25s;
+    box-shadow: 0 16px 35px rgba(0,0,0,0.12);
+    white-space: nowrap;
+  }
+  .contact-popover.visible {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  .faq-panel {
+    position: fixed;
+    top: calc(var(--header-h) + 16px);
+    left: 18px;
+    width: var(--faq-width);
+    max-width: calc(100vw - 36px);
+    max-height: calc(100vh - 92px);
+    overflow-y: auto;
+    background: rgba(245,240,232,0.94);
+    border: 0.5px solid rgba(201,188,168,0.9);
+    box-shadow: 0 22px 60px rgba(0,0,0,0.14);
+    backdrop-filter: blur(14px);
+    z-index: 260;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-12px);
+    transition: 0.28s ease;
+  }
+  .faq-panel.visible {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+  }
+  .faq-inner { padding: 1.35rem 1.15rem 1.2rem; }
+  .faq-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1.2rem;
+  }
+  .faq-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.65rem;
+    letter-spacing: 0.04em;
+  }
+  .faq-close {
+    border: none;
+    background: transparent;
+    color: var(--text-dark);
+    cursor: pointer;
+    font-size: 1.8rem;
+    line-height: 1;
+  }
+  .faq-list { display: grid; gap: 1.05rem; }
+  .faq-item {
+    padding-bottom: 0.95rem;
+    border-bottom: 0.5px solid rgba(138,134,128,0.25);
+  }
+  .faq-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.55rem;
+    line-height: 1;
+    color: #8f7c91;
+    margin-bottom: 0.4rem;
+  }
+  .faq-question {
+    font-size: 0.82rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-dark);
+    margin-bottom: 0.45rem;
+  }
+  .faq-answer {
+    font-size: 0.86rem;
+    line-height: 1.8;
+    color: var(--text-mid);
+  }
 
   .auth-shell {
     min-height: calc(100vh - var(--header-h));
@@ -475,8 +581,79 @@
     cursor: pointer;
   }
 
+  .legal-page {
+    min-height: calc(100vh - var(--header-h));
+    position: relative;
+    background: linear-gradient(180deg, var(--gray-light) 0%, var(--white) 100%);
+    overflow: hidden;
+  }
+  .legal-watermark {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+  }
+  .legal-watermark img {
+    width: min(620px, 70vw);
+    opacity: 0.12;
+    filter: grayscale(15%);
+  }
+  .legal-wrap {
+    position: relative;
+    z-index: 1;
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 4rem 1.5rem 5rem;
+  }
+  .legal-card {
+    background: rgba(245,240,232,0.88);
+    border: 0.5px solid var(--beige-dark);
+    box-shadow: 0 18px 60px rgba(0,0,0,0.06);
+    padding: 2.4rem;
+    backdrop-filter: blur(6px);
+  }
+  .legal-eyebrow {
+    font-size: 0.65rem;
+    letter-spacing: 0.45em;
+    text-transform: uppercase;
+    color: var(--gray-dark);
+    margin-bottom: 1rem;
+  }
+  .legal-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.7rem;
+    font-weight: 300;
+    margin-bottom: 1.2rem;
+  }
+  .legal-intro {
+    color: var(--text-mid);
+    line-height: 1.9;
+    margin-bottom: 1.8rem;
+    font-size: 0.92rem;
+  }
+  .legal-section + .legal-section { margin-top: 1.9rem; }
+  .legal-section h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.7rem;
+    font-weight: 300;
+    margin-bottom: 0.75rem;
+  }
+  .legal-section p, .legal-section li {
+    color: var(--text-mid);
+    line-height: 1.9;
+    font-size: 0.92rem;
+  }
+  .legal-section ul {
+    padding-left: 1.1rem;
+    display: grid;
+    gap: 0.5rem;
+  }
+
   @media (max-width: 900px) {
     .products-grid { grid-template-columns: repeat(2, 1fr); }
+    :root { --faq-width: min(46vw, 420px); }
   }
   @media (max-width: 640px) {
     header { padding: 0 1rem; }
@@ -486,7 +663,19 @@
     .newsletter-form { flex-direction: column; }
     .newsletter-input { border-right: 0.5px solid rgba(255,255,255,0.2); }
     .desc-block { padding: 2rem 1.5rem; }
-    footer { gap: 1.5rem; flex-wrap: wrap; }
+    footer { gap: 1.5rem; }
+    .faq-panel {
+      width: calc(100vw - 24px);
+      left: 12px;
+      top: calc(var(--header-h) + 10px);
+    }
+    .legal-card { padding: 1.4rem; }
+    .legal-title { font-size: 2rem; }
+    .contact-popover {
+      width: calc(100vw - 30px);
+      white-space: normal;
+      text-align: center;
+    }
   }
 </style>
 </head>
@@ -502,6 +691,42 @@
     <a href="#login" onclick="closeMenu()">Connexion</a>
     <a href="#home" onclick="closeMenu()">Contact</a>
   </nav>
+</div>
+
+<div class="faq-panel" id="faqPanel">
+  <div class="faq-inner">
+    <div class="faq-header">
+      <div class="faq-title">FAQ</div>
+      <button class="faq-close" type="button" onclick="closeFaq()">×</button>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-number">01</div>
+        <div class="faq-question">Qu'est-ce qu'un carnet digital ?</div>
+        <div class="faq-answer">Un fichier numérique interactif que vous téléchargez après l'achat et utilisez sur votre tablette, téléphone ou ordinateur.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-number">02</div>
+        <div class="faq-question">Sur quelle application l'utiliser ?</div>
+        <div class="faq-answer">GoodNotes, Notability, ou tout lecteur PDF.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-number">03</div>
+        <div class="faq-question">Comment je reçois mon carnet ?</div>
+        <div class="faq-answer">Par e-mail, immédiatement après l'achat.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-number">04</div>
+        <div class="faq-question">Puis-je me faire rembourser ?</div>
+        <div class="faq-answer">Les produits digitaux étant livrés instantanément, les remboursements ne sont pas possibles.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-number">05</div>
+        <div class="faq-question">Une question ? Un problème ?</div>
+        <div class="faq-answer">Contactez-nous via la page Contact.</div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <header>
@@ -607,15 +832,17 @@
         <button class="newsletter-btn" type="submit">S'inscrire</button>
       </form>
       <div class="social-row">
-        <a href="#" class="social-link">TikTok</a>
-        <a href="#" class="social-link">Instagram</a>
+        <a class="social-link" href="https://www.tiktok.com/@studioofbeauty_" target="_blank" rel="noopener noreferrer">TikTok</a>
+        <a class="social-link" href="https://www.instagram.com/studioofbeauty___" target="_blank" rel="noopener noreferrer">Instagram</a>
+        <a class="social-link" href="https://linktr.ee/Studioofbeautyy" target="_blank" rel="noopener noreferrer">Linktree</a>
       </div>
     </section>
 
     <footer>
-      <a href="#">FAQ</a>
-      <a href="#">Contact</a>
-      <a href="#">Mentions légales</a>
+      <button type="button" onclick="toggleFaq()">FAQ</button>
+      <button id="contactBtn" type="button" onclick="toggleContactBubble()">Contact</button>
+      <a href="#legal">Mentions légales</a>
+      <div class="contact-popover" id="contactPopover">studioofbeauty@gmail.com</div>
     </footer>
   </section>
 
@@ -705,6 +932,91 @@
       </div>
     </div>
   </section>
+
+  <section id="page-legal" class="page-view">
+    <div class="legal-page">
+      <div class="legal-watermark">
+        <img src="https://raw.githubusercontent.com/seker94450/index.html/main/logo-studioofbeauty.png" alt="Studio of Beauty logo">
+      </div>
+      <div class="legal-wrap">
+        <div class="legal-card">
+          <div class="legal-eyebrow">Informations légales</div>
+          <h1 class="legal-title">Mentions légales</h1>
+          <p class="legal-intro">Cette page regroupe les informations légales, de contact, d'hébergement et de fonctionnement du site Studio of Beauty. Pour une mise en conformité complète, remplace les champs entre crochets par tes vraies informations d'entreprise.</p>
+
+          <div class="legal-section">
+            <h2>1. Éditeur du site</h2>
+            <p>Le présent site est édité par : <strong>[Nom / raison sociale]</strong>, <strong>[forme juridique]</strong>, au capital de <strong>[montant]</strong> euros, dont le siège social est situé <strong>[adresse complète]</strong>, immatriculée au RCS / RNE sous le numéro <strong>[numéro]</strong>, numéro de TVA intracommunautaire <strong>[numéro si applicable]</strong>.</p>
+            <p>Contact : studioofbeauty@gmail.com — Téléphone : <strong>[à compléter]</strong>.</p>
+          </div>
+
+          <div class="legal-section">
+            <h2>2. Directrice de la publication</h2>
+            <p>Directrice de la publication : <strong>[Nom Prénom]</strong>.</p>
+          </div>
+
+          <div class="legal-section">
+            <h2>3. Hébergement</h2>
+            <p>Le site est hébergé par <strong>GitHub, Inc.</strong>, 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, États-Unis.</p>
+          </div>
+
+          <div class="legal-section">
+            <h2>4. Produits et services</h2>
+            <p>Studio of Beauty propose à la vente des carnets digitaux téléchargeables. Les visuels, descriptions, prix et contenus sont fournis à titre informatif et peuvent être modifiés à tout moment.</p>
+          </div>
+
+          <div class="legal-section">
+            <h2>5. Commandes et paiement</h2>
+            <p>Toute commande implique l'acceptation des conditions générales de vente applicables. Les prix sont affichés en euros TTC. Les modalités de paiement, de livraison numérique et d'exécution de la commande doivent être précisées dans les CGV du site.</p>
+          </div>
+
+          <div class="legal-section">
+            <h2>6. Rétractation et remboursement</h2>
+            <p>Conformément aux règles applicables aux contenus numériques fournis immédiatement après achat, le droit de rétractation peut ne pas s'appliquer lorsque l'exécution a commencé avec l'accord préalable du client. Les produits digitaux livrés instantanément ne sont donc pas remboursables, sauf disposition légale contraire.</p>
+          </div>
+
+          <div class="legal-section">
+            <h2>7. Propriété intellectuelle</h2>
+            <p>Tous les éléments du site, incluant notamment les textes, visuels, logos, créations graphiques, carnets digitaux et contenus téléchargeables, sont protégés par le droit de la propriété intellectuelle. Toute reproduction, représentation, diffusion ou exploitation sans autorisation écrite préalable est interdite.</p>
+          </div>
+
+          <div class="legal-section">
+            <h2>8. Données personnelles</h2>
+            <p>Les données collectées via le site (formulaire d'inscription, contact, newsletter, commande) sont utilisées pour la gestion de la relation client, le suivi des commandes et, le cas échéant, l'envoi d'informations commerciales si l'utilisateur y consent. Conformément au RGPD, l'utilisateur peut exercer ses droits d'accès, de rectification, d'effacement, de limitation, d'opposition et de portabilité à l'adresse : studioofbeauty@gmail.com.</p>
+          </div>
+
+          <div class="legal-section">
+            <h2>9. Cookies</h2>
+            <p>Le site peut utiliser des cookies ou technologies similaires pour améliorer l'expérience utilisateur, mesurer l'audience et mémoriser certaines préférences. Une bannière ou politique dédiée doit être ajoutée si des cookies non strictement nécessaires sont utilisés.</p>
+          </div>
+
+          <div class="legal-section">
+            <h2>10. Responsabilité</h2>
+            <p>L'éditrice du site s'efforce d'assurer l'exactitude des informations publiées. Elle ne saurait toutefois être tenue responsable d'éventuelles erreurs, indisponibilités, interruptions, dommages indirects ou mauvaise utilisation du site.</p>
+          </div>
+
+          <div class="legal-section">
+            <h2>11. Droit applicable</h2>
+            <p>Les présentes mentions légales sont régies par le droit français. En cas de litige, et à défaut d'accord amiable, les juridictions françaises seront compétentes.</p>
+          </div>
+
+          <div class="legal-section">
+            <h2>12. À compléter impérativement</h2>
+            <ul>
+              <li>Ton nom ou nom d'entreprise</li>
+              <li>Ton adresse postale complète</li>
+              <li>Ton numéro SIREN / RCS / RNE selon ton statut</li>
+              <li>Ton téléphone professionnel si tu veux l'afficher</li>
+              <li>Tes CGV complètes si tu vends en ligne</li>
+              <li>Ta politique de confidentialité et cookies si tu collectes des données</li>
+            </ul>
+          </div>
+
+          <a class="home-link" href="#home">Retour à l'accueil</a>
+        </div>
+      </div>
+    </div>
+  </section>
 </main>
 
 <script>
@@ -720,27 +1032,21 @@
   function getUsers() {
     return JSON.parse(localStorage.getItem(STORAGE_USERS) || '[]');
   }
-
   function saveUsers(users) {
     localStorage.setItem(STORAGE_USERS, JSON.stringify(users));
   }
-
   function getCurrentUser() {
     return JSON.parse(localStorage.getItem(STORAGE_SESSION) || 'null');
   }
-
   function saveCurrentUser(user) {
     localStorage.setItem(STORAGE_SESSION, JSON.stringify(user));
   }
-
   function getInitial(value) {
     return value && value.trim() ? value.trim().charAt(0).toUpperCase() : '';
   }
-
   function getUserLetters(user) {
     return `${getInitial(user.firstName)} ${getInitial(user.lastName)}`.trim();
   }
-
   function showMessage(elementId, text, type) {
     const el = document.getElementById(elementId);
     if (!el) return;
@@ -752,7 +1058,6 @@
     const currentUser = getCurrentUser();
     const avatar = document.getElementById('avatarBadge');
     const svg = document.getElementById('accountSvg');
-
     if (currentUser) {
       avatar.textContent = getUserLetters(currentUser);
       avatar.classList.add('visible');
@@ -762,7 +1067,6 @@
       avatar.classList.remove('visible');
       svg.style.display = 'block';
     }
-
     updateAccountPanel();
   }
 
@@ -774,7 +1078,6 @@
     const fullName = document.getElementById('accountFullName');
     const loginSubmitBtn = document.getElementById('loginSubmitBtn');
     const loginSwitchText = document.getElementById('loginSwitchText');
-
     if (!panel) return;
 
     if (currentUser) {
@@ -796,17 +1099,17 @@
 
   function showPageFromHash() {
     const hash = window.location.hash || '#home';
-    const route = ['#home', '#signup', '#login', '#account'].includes(hash) ? hash : '#home';
-
+    const route = ['#home', '#signup', '#login', '#account', '#legal'].includes(hash) ? hash : '#home';
     if (route === '#account' && !getCurrentUser()) {
       location.hash = '#signup';
       return;
     }
-
     document.querySelectorAll('.page-view').forEach(section => section.classList.remove('active'));
     const page = document.getElementById(`page-${route.replace('#', '')}`);
     if (page) page.classList.add('active');
     closeMenu();
+    closeContactBubble();
+    if (route !== '#home') closeFaq();
     window.scrollTo({ top: 0, behavior: 'smooth' });
     updateAccountPanel();
   }
@@ -833,6 +1136,35 @@
     button.textContent = hidden ? '🙈' : '👁';
   }
 
+  function toggleFaq() {
+    const faq = document.getElementById('faqPanel');
+    faq.classList.toggle('visible');
+  }
+  function closeFaq() {
+    document.getElementById('faqPanel').classList.remove('visible');
+  }
+
+  function toggleContactBubble() {
+    document.getElementById('contactPopover').classList.toggle('visible');
+  }
+  function closeContactBubble() {
+    document.getElementById('contactPopover').classList.remove('visible');
+  }
+
+  document.addEventListener('click', function(e) {
+    const faq = document.getElementById('faqPanel');
+    const faqBtn = e.target.closest('footer button');
+    if (!faq.contains(e.target) && !(faqBtn && faqBtn.textContent.trim() === 'FAQ')) {
+      closeFaq();
+    }
+
+    const contactPopover = document.getElementById('contactPopover');
+    const contactBtn = document.getElementById('contactBtn');
+    if (!contactPopover.contains(e.target) && e.target !== contactBtn) {
+      closeContactBubble();
+    }
+  });
+
   document.getElementById('newsletterForm').addEventListener('submit', function(e) {
     e.preventDefault();
     const email = document.getElementById('newsletterEmail').value.trim();
@@ -843,29 +1175,24 @@
 
   document.getElementById('signupForm').addEventListener('submit', function(e) {
     e.preventDefault();
-
     const firstName = document.getElementById('signupFirstName').value.trim();
     const lastName = document.getElementById('signupLastName').value.trim();
     const email = document.getElementById('signupEmail').value.trim().toLowerCase();
     const password = document.getElementById('signupPassword').value;
-
     if (!firstName || !lastName || !email || !password) {
       showMessage('signupMessage', 'Merci de remplir tous les champs.', 'error');
       return;
     }
-
     if (password.length < 6) {
       showMessage('signupMessage', 'Le mot de passe doit contenir au moins 6 caractères.', 'error');
       return;
     }
-
     const users = getUsers();
     const existing = users.find(user => user.email === email);
     if (existing) {
       showMessage('signupMessage', 'Un compte existe déjà avec cette adresse e-mail.', 'error');
       return;
     }
-
     const newUser = { firstName, lastName, email, password };
     users.push(newUser);
     saveUsers(users);
@@ -873,36 +1200,27 @@
     updateHeaderAccount();
     showMessage('signupMessage', 'Compte créé avec succès.', 'success');
     this.reset();
-
-    setTimeout(() => {
-      location.hash = '#home';
-    }, 900);
+    setTimeout(() => { location.hash = '#home'; }, 900);
   });
 
   document.getElementById('loginForm').addEventListener('submit', function(e) {
     e.preventDefault();
-
     const email = document.getElementById('loginEmail').value.trim().toLowerCase();
     const password = document.getElementById('loginPassword').value;
     const users = getUsers();
     const user = users.find(item => item.email === email && item.password === password);
-
     if (!user) {
       showMessage('loginMessage', 'E-mail ou mot de passe incorrect.', 'error');
       return;
     }
-
     saveCurrentUser(user);
     updateHeaderAccount();
     showMessage('loginMessage', `Bienvenue ${user.firstName}.`, 'success');
     this.reset();
-    setTimeout(() => {
-      location.hash = '#account';
-    }, 600);
+    setTimeout(() => { location.hash = '#account'; }, 600);
   });
 
   window.addEventListener('hashchange', showPageFromHash);
-
   window.addEventListener('DOMContentLoaded', () => {
     const prefillEmail = localStorage.getItem('sob_prefill_email');
     if (prefillEmail) {
