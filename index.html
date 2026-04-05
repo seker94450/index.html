@@ -100,33 +100,10 @@
   .page-view.active { display: block; }
 
   .hero {
-  position: relative;
-  height: calc(100vh - var(--header-h));
-  overflow: hidden;
-  z-index: 1; /* 🔥 AJOUTE ICI */
-}
+    position: relative;
+    height: calc(100vh - var(--header-h));
+    overflow: hidden;
   }
- .hero-image {
-  width: 100%;
-  height: 100%;
-  position: relative;
-  overflow: hidden;
-}
-
-.hero-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.hero-image::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: rgba(0,0,0,0.25);
-  pointer-events: none; /* 🔥 IMPORTANT */
-}
-}
   .hero-placeholder {
     width: 100%; height: 100%;
     background: linear-gradient(160deg, #ddd8cf 0%, #ccc4b8 50%, #bab0a2 100%);
@@ -394,7 +371,7 @@
     border: 0.5px solid rgba(201,188,168,0.9);
     box-shadow: 0 22px 60px rgba(0,0,0,0.14);
     backdrop-filter: blur(14px);
-    z-index: 0;
+    z-index: 260;
     opacity: 0;
     pointer-events: none;
     transform: translateY(-12px);
@@ -1195,9 +1172,7 @@
 <main>
   <section id="page-home" class="page-view active">
     <section class="hero">
-      <div class="hero-image">
-  <img src="imgg-accueil.jpg" alt="Studio of Beauty">
-</div>
+      <div class="hero-placeholder"><div class="hero-figure-inner"></div></div>
       <div class="hero-label">
         <h1 class="hero-title">Studio of Beauty</h1>
         <p class="hero-sub">Carnets digitaux · Beauté & Précision</p>
@@ -1322,7 +1297,7 @@
       <button type="button" onclick="toggleFaq()">FAQ</button>
       <button id="contactBtn" type="button" onclick="toggleContactBubble()">Contact</button>
       <a href="#legal">Mentions légales</a>
-      <div class="contact-popover" id="contactPopover">studioofbeautyyy@gmail.com</div>
+      <div class="contact-popover" id="contactPopover">studioofbeauty@gmail.com</div>
     </footer>
   </section>
 
@@ -1538,7 +1513,7 @@
           </div>
           <div class="legal-section">
             <h2>Contact</h2>
-            <p>Pour toute question ou demande, vous pouvez nous contacter à l'adresse suivante : <br><strong>studioofbeautyyy@gmail.com</strong></p>
+            <p>Pour toute question ou demande, vous pouvez nous contacter à l'adresse suivante : <br><strong>studioofbeauty@gmail.com</strong></p>
           </div>
           <a class="home-link" href="#home">Retour à l'accueil</a>
         </div>
@@ -2042,5 +2017,7 @@ Des instructions et tutoriels sont fournis après l’achat pour guider l’util
     updateHeaderAccount();
     showPageFromHash();
   });
-
-
+</script>
+</body>
+</html>
+``` 
